@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\buildtools\common.props" />
+
+  <PropertyGroup>
+
+    <Description>OpenTelekomCloud FunctionGraph .NET - Events package for CTS.</Description>
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Events.CTS</AssemblyTitle>
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Events.CTS</AssemblyName>
+
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Events.CTS</RootNamespace>
+
+    <PackageId>OpenTelekomCloud.Serverless.Function.Events.CTS</PackageId>
+    <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Json_Version)" />
+  </ItemGroup>
+
+
+</Project>

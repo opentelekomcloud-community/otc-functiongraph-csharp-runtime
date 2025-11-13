@@ -1,0 +1,14 @@
+bin/
+obj/
+dotnet-install.sh
+build
+.tox
+Deployment
+# Ignore NuGet Packages
+nupkgs/
+*.nupkg
+*.snupkg
+*.zip
+
+*.terraform
+.terraform.lock.hcl

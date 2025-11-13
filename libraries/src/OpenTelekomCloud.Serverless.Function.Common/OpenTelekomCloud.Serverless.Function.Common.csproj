@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\buildtools\common.props" />
+
+  <PropertyGroup>
+    <Description>OpenTelekomCloud FunctionGraph .NET Core support - Common package.</Description>
+
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Common</AssemblyTitle>
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Common</AssemblyName>
+
+
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Common</RootNamespace>
+
+    <PackageId>OpenTelekomCloud.Serverless.Function.Common</PackageId>
+    <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+</Project>

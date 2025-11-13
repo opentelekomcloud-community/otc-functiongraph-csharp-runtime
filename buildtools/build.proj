@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="full-build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <DeploymentNuGetConfig Include="NuGet.Config" />
+
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+
+    <SignAssembly Condition=" '$(SignAssembly)' == '' ">true</SignAssembly>
+
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)otc-functiongraph-csharp-runtime.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <Target Name="full-build"
+    DependsOnTargets="full-build-notests">
+  </Target>
+
+  <Target Name="full-build-notests"
+    DependsOnTargets="publish-nuget-local">
+  </Target>
+
+  <Target Name="build"
+    DependsOnTargets="build-project-packages"></Target>
+
+  <ItemGroup>
+    <LibraryName Include="../libraries/src/**/*.csproj" />
+  </ItemGroup>
+
+  <Target Name="init">
+    <RemoveDir Directories="../Deployment" />
+    <Exec Command="dotnet restore libraries.sln" WorkingDirectory="../libraries" />
+  </Target>
+
+  <Target Name="build-nuget-packages" DependsOnTargets="init">
+    <Exec
+      Command="dotnet build libraries.sln /t:Rebuild /p:Configuration=$(Configuration) /p:AssemblyOriginatorKeyFile=$(AssemblyOriginatorKeyFile) /p:SignAssembly=$(SignAssembly)"
+      WorkingDirectory="../libraries" />
+      
+    <Exec      
+      Command="dotnet pack --no-build -c $(Configuration) -v d -o $(MSBuildThisFileDirectory)../Deployment/nuget-packages"
+      WorkingDirectory="../libraries/src/%(LibraryName.FileName)" />
+  </Target>
+
+  <Target Name="publish-nuget-local" DependsOnTargets="build-nuget-packages">
+    <Exec Command="dotnet nuget locals --clear all" />
+
+    <Exec
+      Command="dotnet nuget push &quot;$(MSBuildThisFileDirectory)../Deployment/nuget-packages/*.nupkg&quot; --source &quot;local-feed&quot;"
+      WorkingDirectory="$(MSBuildProjectDirectory)"
+      StdOutEncoding="utf-8" />
+  </Target>
+
+</Project>

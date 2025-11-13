@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\buildtools\common.props" />
+
+  <PropertyGroup>
+
+    <Description>OpenTelekomCloud FunctionGraph .NET - Events package for DMS4Kafka.</Description>
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka</AssemblyTitle>
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka</AssemblyName>
+
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka</RootNamespace>
+
+    <PackageId>OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka</PackageId>
+    <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Json_Version)" />
+  </ItemGroup>
+
+
+</Project>

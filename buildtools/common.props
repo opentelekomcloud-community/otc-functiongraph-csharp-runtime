@@ -1,0 +1,102 @@
+<Project>
+
+  <ItemGroup>
+    <!-- https://learn.microsoft.com/en-us/dotnet/standard/library-guidance/sourcelink -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- <DebugType>embedded</DebugType> -->
+    <IncludeSource>true</IncludeSource>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- https://github.com/adamralph/minver -->
+    <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <Target Name="FixVersion" AfterTargets="MinVer">
+    <PropertyGroup>
+      <!-- Assembly Version must be 1.0.0.0 -->
+      <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    </PropertyGroup>
+  </Target>
+
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>SYSLIB0021,SYSLIB0014,1591,CS1587</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
+    <NuGetAudit>false</NuGetAudit>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CopyrightYear>$([System.DateTime]::UtcNow.ToString(yyyy))</CopyrightYear>
+
+    <Newtonsoft_Json_Version>13.0.3</Newtonsoft_Json_Version>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)otc-functiongraph-csharp-runtime.snk</AssemblyOriginatorKeyFile>
+    <PublicKey>0024000004800000940000000602000000240000525341310004000001000100e37b7cbef16a72688e5abfa5cc569b0715c5ff02bb97e8ee0f4782ec67c1f7be08d22d50c95e500f0a9508e66903a9f7383add439b4d050c46b3dca580495fe51683b573bb92c56c95f4a8d3e20c38155e1c20b8baed1085fbd8d7298b41cb00bb632999a6f6cbc297d20e581a40aa3a87a0f1dcdb37d33e0dff36579db7268e</PublicKey>
+
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup>
+
+    <Company>T-Systems International GmbH</Company>
+     <Authors>OpenTelekomCloud-Community, PaaS Squad</Authors>
+    <Copyright>Copyright © T-Systems International GmbH $(CopyrightYear)</Copyright>
+     <NeutralLanguage>en-US</NeutralLanguage>
+
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+
+  </PropertyGroup>
+
+  <PropertyGroup>
+
+    <FileAlignment>512</FileAlignment>
+    <OutputType>Library</OutputType>
+
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+
+    <PackageProjectUrl>
+      https://github.com/opentelekomcloud-community/otc-functiongraph-csharp-runtime</PackageProjectUrl>
+
+    <PackageIcon>fg.png</PackageIcon>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/opentelekomcloud-community/otc-functiongraph-csharp-runtime</RepositoryUrl>
+
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="..\..\..\images\fg.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

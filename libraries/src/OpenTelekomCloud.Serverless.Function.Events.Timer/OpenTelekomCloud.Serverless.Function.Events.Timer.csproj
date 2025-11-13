@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\buildtools\common.props" />
+
+  <PropertyGroup>
+
+    <Description>OpenTelekomCloud FunctionGraph .NET Core support - Events package for Timer.</Description>
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Events.Timer</AssemblyTitle>
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Events.Timer</AssemblyName>
+
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Events.Timer</RootNamespace>
+
+    <PackageId>OpenTelekomCloud.Serverless.Function.Events.Timer</PackageId>
+    <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Json_Version)" />
+  </ItemGroup>
+
+
+</Project>

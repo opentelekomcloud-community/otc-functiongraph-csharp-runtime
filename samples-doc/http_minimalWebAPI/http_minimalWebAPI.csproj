@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- ####### add below to your .csproj ###### -->
+
+  <PropertyGroup>
+    <ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- ## bootstrap file content -->
+  <PropertyGroup>
+    <GeneratedBootstrapFile>
+<![CDATA[
+# functiongraph requires to listen on port 8000
+export ASPNETCORE_URLS=http://localhost:8000/
+# set content root to $RUNTIME_CODE_ROOT
+export ASPNETCORE_CONTENTROOT=$RUNTIME_CODE_ROOT
+# start the application
+$RUNTIME_CODE_ROOT/$(MSBuildProjectName)
+]]>
+    </GeneratedBootstrapFile>
+  </PropertyGroup>
+
+  <!-- ## create zip with bootstrap -->
+  <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Publish">
+    <!-- create bootstrap file -->
+    <WriteLinesToFile
+      File="$(OutputPath)\publish\bootstrap"
+      Lines="$(GeneratedBootstrapFile)"
+      Overwrite="true" />
+
+    <!-- zip the publish directory -->
+    <ZipDirectory SourceDirectory="$(OutputPath)\publish"
+      DestinationFile="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(TargetFramework).zip"
+      Overwrite="true" />
+  </Target>
+
+
+  <!-- ## publish settings for Release build -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- dotnet publish -c Release -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageFrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>
