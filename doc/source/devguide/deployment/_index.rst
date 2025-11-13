@@ -5,7 +5,7 @@ Deployment of FunctionGraph functions
    :maxdepth: 2
    :hidden:
 
-..   Terraform <terraform/_index>
+   Terraform <terraform/_index>
 
 This chapter describes deployment of FunctionGraph.
 
