@@ -6,14 +6,14 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;netcoreapp2.1;net6.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Include handler.txt in package -->
-    <Content Include="handler.txt">
+    <Content Include="handler.txt" Condition="Exists('handler.txt')">
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
       <IncludeInPackage>true</IncludeInPackage>
@@ -24,5 +24,12 @@
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
+
+  <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Build">
+    <ZipDirectory
+      SourceDirectory="$(OutputPath)"
+      DestinationFile="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(TargetFramework).zip"
+      Overwrite="true" />
+  </Target>
 
 </Project>

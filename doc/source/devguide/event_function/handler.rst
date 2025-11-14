@@ -1,66 +1,59 @@
 Define FunctionGraph function handler in C#
 ==========================================================
 
+.. toctree::
+    :hidden:
+
 The C# function handler is the method in your function code that
 processes events.
 When your function is invoked, FunctionGraph runs the handler method.
 Your function runs until the handler returns a response, exits, or times out.
 
+C# function syntax: **[Scope]** **[Return parameter]** **[Function name]** (**[User-defined parameter]**, **[Context]**)
 
-Setting up the C# handler project
----------------------------------
+- **Scope**: It must be defined as public for the function
+  that FunctionGraph invokes to execute your code.
+- **Return parameter**: user-defined output, which is converted
+  into a character string and returned as an HTTP response.
+- **Function name**: user-defined function name. The name must
+  be consistent with that you define when creating a function.
+- **User-defined parameter**: parameter defined for the function.
+- **context**: runtime information provided for executing the function.
 
-A typical C# FunctionGraph project is typically structured as follows:
+.. note::
+  - For target frameworks prior to .NET 6.0,
+    the **HC.Serverless.Function.Common.legacy**
+    library needs to be referenced,
+  - for target frameworks .NET 6.0 and later versions,
+    the **OpenTelekomCloud.Serverless.Function.Common** library
+    needs to be referenced.
 
-.. code-block:: console
+  For details about the IFunctionContext object, see the :doc:`Context <./context>` description.
 
-  /project-root
-   ├─ Program.cs
-   └─ program.csproj
-
-The main logic for the function resides in C# file **Program.cs**.
-When deploying to FunctionGraph make sure to specify the correct handler:
-
-For a C# function, the handler must be named in the format of
-
-.. code-block:: console
-
-   ASSEMBLY::NAMESPACE.CLASSNAME::METHODNAME
-
-**ASSEMBLY**: name of the .NET assembly file for your application,
-for example, HelloCsharp.
-
-**NAMESPACE** and **CLASSNAME**: names of the namespace and class
-to which the handler function belongs.
-
-**METHODNAME**: name of the handler function. 
+When creating a C# function, you need to define a method as the handler
+of the function.
 
 Example:
 
-.. code-block:: console
+.. code-block:: csharp
+   :caption: Example of a C# function handler
 
-   HelloCsharp::Example.Hello::Handler
+    #if NET6_0_OR_GREATER
+      using OpenTelekomCloud.Serverless.Function.Common;
+    #else
+      using HC.Serverless.Function.Common;
+    #endif
 
-
-Example code for C# FunctionGraph function
-------------------------------------------
-
-TBD
-
-Example C# FunctionGraph function code
---------------------------------------
-
-The following example shows a simple FunctionGraph function written in C#.
-
-.. literalinclude:: /../../samples-doc/simple/Program.cs
-    :language: csharp
-    :caption: :github_repo_master:`program.cs <samples-doc/simple/Program.cs>`
-
-
-.. literalinclude:: /../../samples-doc/simple/handler.txt
-    :language: csharp
-    :caption: The handler name for this example is:
-
+    namespace Example
+    {
+        public class Hello
+        {
+            public string Handler(string input, IFunctionContext context)
+            {
+                return "Hello";
+            }
+        }
+    }
 
 Accessing and using the FunctionGraph context object
 ----------------------------------------------------
@@ -84,7 +77,7 @@ To produce logs in OpenTelekomCloud Log Tank Servics (LTS) you can use
   logger.Logf("Hello {0}", string(payload));
 
 For more information about the context object,
-see :doc:`Using the FunctionGraph context object to retrieve function information.<./context>`
+see :doc:`Using the FunctionGraph context object to retrieve function information<./context>`.
 
 Accessing environment variables
 -------------------------------

@@ -20,12 +20,18 @@ FunctionGraph on OpenTelekomCloud.
 
    Work in progress. Subject to change without notice.
 
+.. note::
+
+  Samples and descriptions are indented to work with Ubuntu/Linux environment.
+
+  (E.g. using Windows Subsystem for Linux (WSL) on Windows.)
 
 
 Source Code
 -----------
 
-For source code, see :github_repo_master:`otc-functiongraph-csharp-runtime<>` on Github.
+For source code, see :github_repo_master:`otc-functiongraph-csharp-runtime<>`
+on Github.
 
 Documentation from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,6 +1,9 @@
 Using the FunctionGraph context interface to retrieve C# function information
 =============================================================================
 
+.. toctree::
+    :hidden:
+
 When FunctionGraph runs your function, it passes a context object to the
 handler.
 This object provides context attributes that provide information about
@@ -8,6 +11,8 @@ the invocation, function, and execution environment.
 
 Context interface
 -----------------
+
+The interface methods of :github_repo_master:`IFunctionContext </libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionContext.cs>` interface are:
 
 .. list-table:: **Table 1** Context interface methods
    :widths: 10 25
@@ -18,7 +23,7 @@ Context interface
 
    * - string RequestId
      - Get the request ID.
-  
+
    * - string ProjectId()
      - Get the project id
 
@@ -104,42 +109,47 @@ Context interface
 Logging
 -------------
 
-FunctionGraph provides a logging interface through the context object.
+FunctionGraph provides a :github_repo_master:`IFunctionLogger </libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionLogger.cs>` interface through the context object.
 
 The logger can be accessed by using the **Logger** property of the
 context object.
 
-The methods provided by the interface outputs logs in the format of *Time in UTC* *Request ID* *Output*
-for example, **2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 test log output.**
+.. The methods provided by the interface outputs logs in the format of *Time in UTC* *Request ID* *Output*
+   for example, **2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 test log output.**
 
-The logging interface provides the following methods:
+Following methods are provided by the logging interface:
 
-**Log(string message)**.
+- **Log(string message)**.
 
-The following example shows how to use the logging interface:
+    The following example shows how to use the logging interface:
 
-.. code-block:: csharp
-   :caption: Example
+    .. code-block:: csharp
+      :caption: Example
 
-    var logger = context.Logger
-    logger.Log("Hello world")
+        var logger = context.Logger
+        logger.Log("Hello world")
 
-The preceding code outputs the following log:
+    The preceding code outputs the following log:
 
-**2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 Hello world**
+    ``Hello world``
+
+    .. **2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 Hello world**
 
 
-**Logf(string format, params object[] args)**.
-The following example shows how to use the logging interface:
+- **Logf(string format, params object[] args)**.
 
-.. code-block:: csharp
-   :caption: Example
+    The following example shows how to use the logging interface:
 
-    var logger = context.Logger
-    var version = "v1.0.2"
-    logger.Logf("Hello world {0}", version)
+    .. code-block:: csharp
+      :caption: Example
 
-The preceding code outputs the following log:
+        var logger = context.Logger
+        var version = "v1.0.2"
+        logger.Logf("Hello world {0}", version)
 
-**2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 Hello world v1.0.2**
+    The preceding code outputs the following log:
+
+    ``Hello world v1.0.2``
+
+    .. **2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 Hello world v1.0.2**
 

@@ -20,11 +20,4 @@
       Version="*-*" />
   </ItemGroup>
 
-  <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Build">
-    <ZipDirectory
-      SourceDirectory="$(OutputPath)"
-      DestinationFile="$(MSBuildProjectDirectory)\sample_$(TargetFramework).zip"
-      Overwrite="true" />
-  </Target>
-
 </Project>
