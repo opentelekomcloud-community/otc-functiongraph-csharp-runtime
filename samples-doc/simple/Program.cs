@@ -1,6 +1,6 @@
 ﻿namespace src
 {
-  
+
 #if NET6_0_OR_GREATER
   using OpenTelekomCloud.Serverless.Function.Common;
 #else
@@ -14,6 +14,11 @@
   class Program
   {
 
+    public static void Main(string[] args)
+    {
+      Console.WriteLine("This is a test function for OTC FunctionGraph CSharp runtime.");
+    }
+    
     public Stream Handler(Stream input, IFunctionContext context)
     {
       string payload = "";
