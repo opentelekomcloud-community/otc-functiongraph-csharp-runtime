@@ -46,3 +46,10 @@ perform the following steps:
 On details how to use the Security-Access-Key, Security-Secret-Key,
 and Security-Token to call other OTC services using API request,
 see :github_csharp_sign_sdk:`Developer guide for request signing for C+<>`
+
+
+.. hint::
+
+  In Terraform set **enable_auth_in_header**  to **true** in the resource
+  **opentelekomcloud_functiongraph_function_v2** to enable transferring
+  keys through the request header.

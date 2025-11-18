@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <NuGetAudit>false</NuGetAudit>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>s3obsThumbnail</AssemblyName>
+
+    <OutputType>Exe</OutputType>
+
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include handler.txt in package -->
+    <Content Include="handler.txt" Condition="Exists('handler.txt')">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <CopyToOutput>true</CopyToOutput>
+      <BuildAction>Content</BuildAction>
+      <copyToOutput>true</copyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Build">
+    <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(TargetFramework).zip" Overwrite="true" />
+  </Target>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.JsonSerializer" Version="*-*" />
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Events.OBSS3" Version="*-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.4.3" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.4.3" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,3 @@
-
 # prefix will be prepended to all ressource names
 variable "prefix" {
   type    = string
