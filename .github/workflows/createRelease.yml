@@ -1,0 +1,57 @@
+name: publishPackage
+
+on:
+  workflow_dispatch:
+
+  push:
+    tags:
+      - "v*"  # Trigger when a version tag is pushed (e.g., v1.0.0)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: configure-git-user
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            8.0.x
+            6.0.x
+            3.1.x
+            2.1.x
+
+      - name: Build Package
+        run: |
+          cd libraries
+          dotnet pack --output nupkgs --include-symbols --include-source /p:ContinuousIntegrationBuild=true --configuration Release
+
+      - name: Publish Package
+        run: |
+          cd libraries
+          dotnet nuget push nupkgs/*.nupkg --source $NUGET_SOURCE_URL --api-key $GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+          NUGET_SOURCE_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          # tag: $
+          name: ${{github.ref_name}}
+          # bodyFile: relnotes/$.md
+          token: ${{ github.token }}
+          generateReleaseNotes: true
+          draft: true
+          prerelease: true
