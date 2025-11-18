@@ -6,13 +6,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- exe is needed (empty Main method is needed)-->
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
     
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <PublishSingleFile>true</PublishSingleFile>
+    
     <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'!='netcoreapp2.1'">
+    <!-- PublishSingleFile available starting with .NET Core 3.0 or higher -->
+    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
