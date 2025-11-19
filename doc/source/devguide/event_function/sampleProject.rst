@@ -193,5 +193,13 @@ The generated zip files are:
 Deploy the function
 ^^^^^^^^^^^^^^^^^^^^^
 You can deploy the generated zip files to FunctionGraph
-as HTTP Function using the console.
+as Event Function using the console:
+
+1. In FunctionGraph console, create a new **Event Function** with
+   - **Function Name**: **sample**
+   - **Runtime**: **C# (.NET 6.0)**
+2. Upload the generated zip file **simple_net6.0.zip**.
+3. In **Configuration** ->  **General** set **Handler** to the
+   handler name defined in **handler.txt**
+   
 
