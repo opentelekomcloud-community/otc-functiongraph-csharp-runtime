@@ -20,7 +20,7 @@ Prerequisites
 
   for Ubuntu, see: `Install .NET on Linux <https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install>`_
 
-C# Project structure
+C# project structure
 ^^^^^^^^^^^^^^^^^^^^^
 
 A typical C# FunctionGraph project is typically structured as follows:
@@ -174,7 +174,39 @@ to which the handler function belongs (as defined in Program.cs: src.Program).
 Build the project
 ^^^^^^^^^^^^^^^^^
 
-Run command:
+Project packaging rules for C#
+********************************
+When packaging a C# project for FunctionGraph,
+the ZIP file must contain the following files:
+
+* AssemblyName.deps.json,
+* AssemblyName.dll,
+* AssemblyName.runtimeconfig.json,
+* AssemblyName.pdb,
+* OpenTelekomCloud.Serverless.Function.Common.dll
+  (for C# version .NET 6.0 and above) or
+* OpenTelekomCloud.Serverless.Function.Common.legacy.dll
+  (for C# version prior to .NET 6.0).
+
+(AssemblyName is the name defined in the project file, as `<AssemblyName>`,
+if this is not defined, the project file name is used)
+
+
+Example directory of a C# project package
+
+.. code-block:: text
+
+    simple_net6.0.zip                                   Example project package
+    ├─ simple.deps.json                                 File generated after project compilation
+    ├─ simple.dll                                       File generated after project compilation
+    ├─ simple.pdb                                       File generated after project compilation
+    ├─ simple.runtimeconfig.json                        File generated after project compilation
+    ├─ handler.txt                                      Help file, which can be directly used
+    └─ OpenTelekomCloud.Serverless.Function.Common.dll  .dll file provided by this runtime package
+
+
+This deployment zip will be created automatically
+when you build the project using the following command:
 
 .. code-block:: bash
 
@@ -201,5 +233,4 @@ as Event Function using the console:
 2. Upload the generated zip file **simple_net6.0.zip**.
 3. In **Configuration** ->  **General** set **Handler** to the
    handler name defined in **handler.txt**
-   
 
