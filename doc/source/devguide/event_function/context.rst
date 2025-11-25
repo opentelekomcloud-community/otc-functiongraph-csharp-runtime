@@ -24,7 +24,7 @@ The interface methods of :github_repo_master:`IFunctionContext </libraries/src/O
    * - string RequestId
      - Get the request ID.
 
-   * - string ProjectId()
+   * - string ProjectId
      - Get the project id
 
    * - string PackageName
@@ -49,7 +49,7 @@ The interface methods of :github_repo_master:`IFunctionContext </libraries/src/O
 
        .. note::
 
-         FunctionGraph has stopped maintaining the **GetAccessKey()** API in the Runtime
+         FunctionGraph has stopped maintaining the **AccessKey** API in the Runtime
          SDK. You cannot use this API to obtain a temporary AK.
 
    * - string SecretKey
@@ -59,7 +59,7 @@ The interface methods of :github_repo_master:`IFunctionContext </libraries/src/O
 
        .. note::
 
-         FunctionGraph has stopped maintaining the **GetSecretKey()** API in the Runtime
+         FunctionGraph has stopped maintaining the **SecretKey** API in the Runtime
          SDK. You cannot use this API to obtain a temporary SK.
 
    * - string Token
@@ -106,7 +106,7 @@ The interface methods of :github_repo_master:`IFunctionContext </libraries/src/O
   ``SecuritySecretKey`` methods contain sensitive information.
   Exercise caution when using these methods.
 
-Logging
+Logging API
 -------------
 
 FunctionGraph provides a :github_repo_master:`IFunctionLogger </libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionLogger.cs>` interface through the context object.

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_timer", "event-timer\event_timer.csproj", "{8724E209-0BD3-4355-A487-9938A5EA15D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_timer", "event-timer\src\event_timer.csproj", "{8724E209-0BD3-4355-A487-9938A5EA15D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serialization_simple", "serialization_simple\serialization_simple.csproj", "{92205DBD-0B1C-4D46-89D0-B460CB9F9B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serialization_simple", "serialization_simple\src\serialization_simple.csproj", "{92205DBD-0B1C-4D46-89D0-B460CB9F9B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple", "simple\simple.csproj", "{C9C0E350-0BD7-4190-A84F-063A9B1777F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple", "simple\src\simple.csproj", "{C9C0E350-0BD7-4190-A84F-063A9B1777F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdk_ecs", "sdk-ecs\sdk_ecs.csproj", "{6999AD57-3BC7-4851-BF19-267BE042A7A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sdk_ecs", "sdk-ecs\src\sdk_ecs.csproj", "{6999AD57-3BC7-4851-BF19-267BE042A7A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

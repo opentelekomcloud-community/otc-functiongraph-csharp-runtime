@@ -9,8 +9,7 @@ This is a sample that processes an image uploaded to OBS,
 resizes it to fit within a maximum dimension, and uploads the resized
 image back to another OBS using FunctionGraph with OBS trigger event.
 
-Source for this sample can be found in:
-:github_repo_master:`/samples-doc/event-s3obs-thumbnail</samples-doc/event-s3obs-thumbnail>`.
+
 
 Overview
 --------
@@ -21,7 +20,11 @@ Following diagram shows components used in this example:
   :width: 800
   :alt: Components
 
+Source
+------
 
+Source for this sample can be found in:
+:github_repo_master:`/samples-doc/event-s3obs-thumbnail</samples-doc/event-s3obs-thumbnail>`.
 
 Deployment
 ----------
@@ -80,10 +83,9 @@ To deploy use following command in directory where *Makefile* is located:
   Until the agency is fully, testing the function may fail with
   permission errors like:
 
-  **`Error fetching object otc.jpg from bucket 
+  **`Error fetching object otc.jpg from bucket
   csharp-doc-sample-event-s3obs-thumbnail-csharp-images:
   One or more errors occurred. (Access Denied)`**
-  
 
 References
 ----------

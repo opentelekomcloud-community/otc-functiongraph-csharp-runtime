@@ -1,0 +1,6 @@
+	  function_name="doc-sample-event-timer-csharp"
+	  function_handler_name="event_timer::src.Program::Handler"
+		function_runtime="C#(.NET Core 6.0)"
+		zip_file_local="../src/event_timer_net6.0.zip"
+		prefix="csharp" 
+		tag_app_group="csharp-doc-sample-event-timer"

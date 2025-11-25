@@ -7,6 +7,7 @@ Event Function
    Handler <handler>
    Context <context>
    Sample Project <sampleProject>
+   JSON Handling <json>
    Trigger Events <trigger_events/_index>
 
 Event functions can be configured with event triggers and integrate

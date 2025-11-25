@@ -5,10 +5,11 @@ HTTP Function
    :maxdepth: 1
    :hidden:
 
-   Transfering Secret Keys Through the Request Header <transferringKeys> 
-   Minimal Web API <minimalWebApi>
+   Transfering Secret Keys Through the Request Header <transferringKeys>
+   Sample minimal Web API <minimalWebApi>
 
-HTTP functions support mainstream Web application frameworks and can be accessed through a browser or called directly by a URL.
+HTTP functions support mainstream Web application frameworks and can be
+accessed through a browser or called directly by a URL.
 
 
 Constraints
@@ -27,8 +28,9 @@ Following are the constraints of HTTP functions:
 
   By default, the response is encoded using Base64.
   The default value of **isBase64Encoded** is **true**.
-  For details about the constraints, see Base64 Decoding and
-  Response Structure.
+
+  For details about the constraints, see :ref:`Base64 Decoding and
+  Response Structure<ref_apig_event_base64>`.
 - The bound IP address is **127.0.0.1.**
 - By default, port **8000** is enabled for HTTP functions.
 - By default, an account can create a maximum of 400 functions.
@@ -88,6 +90,16 @@ by functions by default.
      - Region where the function is located.
 
 
-The key information of HTTP functions can be transferred only through request headers.
-For details about how to obtain the AK, SK, and token of HTTP functions, 
-see Transferring Secret Keys Through the Request Header. :ref:`transferringKeys-ref`
+
+.. note::
+
+  The key information of HTTP functions:
+
+     - X-CFF-Auth-Token
+     - X-CFF-Security-Access-Key
+     - X-CFF-Security-Secret-Key
+     - X-CFF-Security-Token
+
+  | can be transferred only through request headers.
+  | For details about how to obtain the AK, SK, and token of HTTP functions,
+    see :ref:`Transferring Secret Keys Through the Request Header <transferringKeys-ref>`

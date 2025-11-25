@@ -1,2 +1,0 @@
-# Handler Name for starting ECS
-sdk_ecs::src.Program::HandlerECSStart

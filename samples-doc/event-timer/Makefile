@@ -1,43 +1,52 @@
-HANDLER_NAME="sample::src.Program::myFunc"
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))/..
+current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
+BACKEND_CONFIG_BUCKET := "sample-tf-backend"
+BACKEND_CONFIG_KEY := "terraform_state/csharp/doc-sample-event-timer.tf"
+BACKEND_CONFIG_REGION := "eu-de"
+BACKEND_CONFIG_ENDPOINTS := "endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}"
 
 clean:
-	rm -f *.zip
-	rm -rf bin obj
+	rm -f $(mkfile_path)/src/*.zip
+	rm -rf $(mkfile_path)/src/bin 
+	rm -rf $(mkfile_path)/src/obj
 
 build:
 	dotnet build
 
 all: build
 
+release: 
+	dotnet build -c Release
+
 initTerraform:
 	terraform -chdir=terraform \
 	  init \
-	  -backend-config="endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}" \
-	  -backend-config="bucket=sample-tf-backend" \
-	  -backend-config="key=terraform_state/csharp/doc-sample-event-timer.tf" \
-	  -backend-config="region=eu-de"
+	  -backend-config=$(BACKEND_CONFIG_ENDPOINTS) \
+	  -backend-config="bucket=$(BACKEND_CONFIG_BUCKET)" \
+	  -backend-config="key=$(BACKEND_CONFIG_KEY)" \
+	  -backend-config="region=$(BACKEND_CONFIG_REGION)"
 
-deploy: all
+plan: release
+	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
+		$(MAKE) initTerraform; \
+	fi
+	terraform -chdir=terraform \
+	  plan \
+		-var-file="net6.tfvars"
+
+
+deploy: release
 	if [ ! -f "terraform/.terraform.lock.hcl" ]; then \
 		$(MAKE) initTerraform; \
 	fi
 	terraform -chdir=terraform \
 	  apply -auto-approve \
-	  -var function_name="doc-sample-event-timer-csharp" \
-	  -var function_handler_name=$(HANDLER_NAME) \
-		-var runtime="C#(.NET Core 6.0)" \
-		-var zip_file_name="sample_net6.0.zip" \
-		-var prefix="csharp"
-
+		-var-file="net6.tfvars"
 
 destroy:
 	terraform -chdir=terraform \
 	  destroy -auto-approve \
-		-var function_name="doc-sample-event-timer-csharp" \
-		-var function_handler_name=$(HANDLER_NAME) \
-		-var runtime="C#(.NET Core 6.0)" \
-		-var zip_file_name="sample_net6.0.zip" \
-		-var prefix="csharp"
+		-var-file="net6.tfvars"
 
-.PHONY: build zip clean all deploy destroy initTerraform
+.PHONY: build zip clean all release deploy destroy initTerraform plan

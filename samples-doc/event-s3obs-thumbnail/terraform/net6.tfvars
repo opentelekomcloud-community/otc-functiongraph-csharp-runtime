@@ -1,0 +1,7 @@
+	  function_name="doc-sample-event-s3obs-thumbnail-csharp"
+	  function_handler_name="s3obsThumbnail::src.Program::Handler"
+    function_initializer_name = "s3obsThumbnail::src.Program::Initializer"
+		function_runtime="C#(.NET Core 6.0)"
+		zip_file_local="../src/event_s3obs_thumbnail_net6.0.zip"
+		prefix="csharp" 
+		tag_app_group="csharp-doc-sample-event-s3obs-thumbnail"

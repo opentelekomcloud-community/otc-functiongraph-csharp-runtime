@@ -42,6 +42,6 @@ Parameter description
 Example
 -------
 
-.. literalinclude:: /../../samples-doc/event-timer/Program.cs
+.. literalinclude:: /../../samples-doc/event-timer/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-timer/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-timer/src/Program.cs>`

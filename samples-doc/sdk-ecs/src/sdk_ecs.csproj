@@ -1,23 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\common.props" />
-
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-  </PropertyGroup>
+  <Import Project="..\..\common.props" />
 
   <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
     <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Events.Timer" Version="*-*" />
   </ItemGroup>
 
   <ItemGroup
     Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
     <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" />
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Events.Timer" Version="*-*" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.JsonSerializer"
-      Version="*-*" />
+    <PackageReference Include="OpenTelekomCloud.API.Signing.Core" Version="*-*" />
   </ItemGroup>
 
 </Project>

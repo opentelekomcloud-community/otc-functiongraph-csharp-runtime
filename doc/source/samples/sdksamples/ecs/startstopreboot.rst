@@ -1,10 +1,11 @@
-Start ECS Sample
-=========================
+ECS Sample to start/stop/reboot an instance
+============================================
 
 .. toctree::
    :hidden:
 
-This sample demonstrates how to start an ECS instance using FunctionGraph and:
+This sample demonstrates how to start/stop/reboot an ECS instance
+using FunctionGraph and:
 
 * :otc_docs:`OpenTelekomCloud Rest API for ECS batch operations <elastic-cloud-server/api-ref/apis_recommended/batch_operations/starting_ecss_in_a_batch.html>` 
 * :github_csharp_sign_sdk:`otc-api-sign-sdk-csharp <>`
@@ -12,24 +13,25 @@ This sample demonstrates how to start an ECS instance using FunctionGraph and:
 Prerequisites
 ^^^^^^^^^^^^^^^^^^^^^
 * For this example an ECS instance must exist.
-* The function must have permissions to start the ECS instance.
+* The function must have permissions to start/stop/reboot the ECS instance.
 
   This can be achieved by creating an agency with a policy
-  granting the permission `ecs:StartServers` and
+  granting the permission `ecs:*:start`, `ecs:*:stop`, and `ecs:*:reboot` and
   specifying this agency when creating the function.
+  (E.g. create an agency with `ECS User` System-defined policy).
 
 
 Source
 -------
 
 Source for this sample can be found in:
-:github_repo_master:`/samples-doc/start-ecs</samples-doc/sdk-ecs>`.
+:github_repo_master:`/samples-doc/sdk-ecs</samples-doc/sdk-ecs>`.
 
 .. tabs::
 
   .. tab:: sdk_ecs.csproj
 
-     .. literalinclude:: /../../samples-doc/sdk-ecs/sdk_ecs.csproj
+     .. literalinclude:: /../../samples-doc/sdk-ecs/src/sdk_ecs.csproj
         :language: xml
         :caption: /sdk_ecs.csproj
 
@@ -37,7 +39,7 @@ Source for this sample can be found in:
 
     This files contains the main program.
 
-     .. literalinclude:: /../../samples-doc/sdk-ecs/Program.cs
+     .. literalinclude:: /../../samples-doc/sdk-ecs/src/Program.cs
         :language: csharp
         :caption: /Program.cs
 
@@ -45,7 +47,7 @@ Source for this sample can be found in:
 
     The handler name for this function is:
 
-     .. literalinclude:: /../../samples-doc/sdk-ecs/handler.txt
+     .. literalinclude:: /../../samples-doc/sdk-ecs/src/handler.txt
         :language: text
         :caption: /handler.txt
 
@@ -53,14 +55,15 @@ Source for this sample can be found in:
 Build the project
 -----------------
 
-Run command:
+To build the project, navigate to the project directory and run the following
+command:
 
 .. code-block:: bash
 
-   dotnet build
+   dotnet build -c Release
 
-This command builds the project for all target frameworks
-and creates a zip file for each target framework
+This command builds the project for all target frameworks defined
+in the project file and creates a zip file for each target framework
 in the project folder.
 
 The generated zip files are:
@@ -73,20 +76,20 @@ The generated zip files are:
 Deploy the function
 -------------------
 
-Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_ to create a function with following
-settings:
+Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
+to create a function with following settings:
 
 Create function
 *******************
 
-**Create With**:  Create from scratch 
+**Create With**:  Create from scratch
 
 **Basic Information**
 
-* **Function Type**  Event Function  
-* **Region**  <YOUR REGION>  
-* **Function Name** <YOUR FUNCTION NAME>  
-* **Agency**  Specify an agency with policy to start ECS instance 
+* **Function Type**  Event Function
+* **Region**  <YOUR REGION>
+* **Function Name** <YOUR FUNCTION NAME>
+* **Agency**  Specify an agency with policy to start ECS instance
 * **Runtime**  C# (.NET 6.0)
 
 Upload code
@@ -115,10 +118,20 @@ Configure function
         - <ID of ecs instance>
         - ID of ECS instance to start
 
-      * - ECS_ENDPOINT
+      * - ECS_ENDPOINT_URL
         - <ecs endpoint>
-        - Default: ecs.eu-de.otc.t-systems.com,
+        - Default: https://ecs.eu-de.otc.t-systems.com
           see :otc_docs:`Regions and Endpoints<regions-and-endpoints/index.html>`
+
+      * - ECS_ACTION
+        - <action>
+        - Action to perform on the ECS instance ("start", "stop", "reboot"),
+          default: "start"
+
+      * - ECS_ACTION_TYPE
+        - <action type>
+        - Action type to perform on the ECS instance for reboot/stop ("SOFT", "HARD"),
+          default: "SOFT"
 
 Test the function
 -------------------
@@ -134,3 +147,5 @@ Test function
 
 Click **Test** to test function.
 
+The function execution result is displayed in the
+**Execution Result** section.

@@ -33,6 +33,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
+
+    <!-- Include README.md in package if exists in parent folder -->
+    <Content Include="../README.md" Condition="Exists('../README.md')">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <CopyToOutput>true</CopyToOutput>
+      <BuildAction>Content</BuildAction>
+      <copyToOutput>true</copyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+
+
   </ItemGroup>
 
   <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Build">

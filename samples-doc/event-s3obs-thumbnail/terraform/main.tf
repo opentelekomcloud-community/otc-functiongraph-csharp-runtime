@@ -73,12 +73,12 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   runtime = var.function_runtime
 
   #code_type = "obs"
-  #code_url  = format("https://%s/code/%s", opentelekomcloud_obs_bucket.codebucket.bucket_domain_name, var.zip_file_name)
+  #code_url  = format("https://%s/code/%s", opentelekomcloud_obs_bucket.codebucket.bucket_domain_name, basename(var.zip_file_local))
 
   code_type     = "zip"
   func_code     = filebase64(var.zip_file_local)
 
-  code_filename = var.zip_file_name
+  code_filename = basename(var.zip_file_local)
 
   log_group_id   = opentelekomcloud_lts_group_v2.MyLogGroup.id
   log_group_name = opentelekomcloud_lts_group_v2.MyLogGroup.group_name

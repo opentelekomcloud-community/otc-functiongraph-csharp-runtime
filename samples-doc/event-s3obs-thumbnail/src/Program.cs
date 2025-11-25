@@ -22,7 +22,7 @@
   using System.Text.RegularExpressions;
 
 
-  class Program
+  public class Program
   {
 
     private const float MAX_DIMENSION = 100;
@@ -32,23 +32,38 @@
     private const string PNG_TYPE = "png";
     private const string PNG_MIME = "image/png";
 
+    /// <summary>
+    /// Main method - not used in FunctionGraph but needed for compilation
+    /// </summary>
+    /// <param name="args"></param>
     public static void Main(string[] args)
     {
-
+      Console.WriteLine("This is a FunctionGraph C# runtime program");
     }
 
+    /// <summary>
+    /// Initializer of the function
+    /// </summary>
+    /// <param name="context"></param>
     public void Initializer(IFunctionContext context)
     {
       var logger = context.Logger;
       logger.Logf("CSharp runtime test: OBSS3 - Initializer");
     }
 
-
+    /// <summary>
+    /// Handler of the function
+    /// </summary>
+    /// <param name="inputEvent"></param>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public Stream Handler(Stream inputEvent, IFunctionContext context)
     {
 
       var logger = context.Logger;
       logger.Logf("CSharp runtime test: OBSS3");
+
+      string endpoint_url = context.GetUserData("OBS_ENDPOINT", "https://obs.otc.t-systems.com");
 
       var ms = new MemoryStream();
 
@@ -65,15 +80,25 @@
       string dstBucket = context.GetUserData("OUTPUT_BUCKET");
       string dstKey = $"resized-{srcKey}";
 
-      AmazonS3Config config = new AmazonS3Config();
-      config.ServiceURL = context.GetUserData("OBS_ENDPOINT", "https://obs.otc.t-systems.com");
-      config.UseHttp = false;
-      config.SignatureVersion = "v4";
+      AmazonS3Config config = new AmazonS3Config
+      {
+        ServiceURL = endpoint_url,
+        UseHttp = false,
+        SignatureVersion = "v4",
+        ForcePathStyle = true
+      }
+      ;
       AWSConfigsS3.UseSignatureVersion4 = true;
 
       string sAccessKeyId = context.SecurityAccessKey;
       string sAccessKeySecret = context.SecuritySecretKey;
       string sSessionToken = context.SecurityToken;
+
+      if (string.IsNullOrEmpty(sAccessKeyId) || string.IsNullOrEmpty(sAccessKeySecret) || string.IsNullOrEmpty(sSessionToken))
+      {
+        logger.Logf("Failed to access OBS because no temporary AK, SK, or token has been obtained. Please set an agency.");
+        return CreateResponse("Failed to access OBS because no temporary AK, SK, or token has been obtained. Please set an agency.");
+      }
 
       using AmazonS3Client s3Client = new AmazonS3Client(
               sAccessKeyId,
@@ -87,7 +112,7 @@
       if (!match.Success)
       {
         logger.Logf($"Unable to infer image type for key {srcKey}");
-        return null;
+        return CreateResponse($"Unable to infer image type for key {srcKey}");
       }
 
       // Check if the image type is supported (jpg/png)
@@ -95,10 +120,10 @@
       if (imageType != JPG_TYPE && imageType != PNG_TYPE)
       {
         logger.Logf($"Skipping non-image {srcKey}");
-        return null;
+        return CreateResponse($"Skipping non-image {srcKey}");
       }
 
-      Task<GetObjectResponse> getResult = null;
+      Task<GetObjectResponse> getResultTask = null;
 
       GetObjectRequest getObjectRequest = new GetObjectRequest()
       {
@@ -108,19 +133,19 @@
 
       try
       {
-        getResult = s3Client.GetObjectAsync(getObjectRequest);
-        getResult.Wait();
+        getResultTask = s3Client.GetObjectAsync(getObjectRequest);
+        getResultTask.Wait();
       }
       catch (Exception ex)
       {
         logger.Logf($"Error fetching object {srcKey} from bucket {bucketName}: {ex.Message}");
-        return null;
+        return CreateResponse($"Error fetching object {srcKey} from bucket {bucketName}: {ex.Message}");
       }
 
-      logger.Logf($"Downloaded file size: {getResult.Result.ContentLength} bytes");
+      logger.Logf($"Downloaded file size: {getResultTask.Result.ContentLength} bytes");
 
       using Stream newImageStream = new MemoryStream();
-      long size = ResizeImage(getResult.Result.ResponseStream, newImageStream);
+      long size = ResizeImage(getResultTask.Result.ResponseStream, newImageStream);
       logger.Logf($"Resized image size: {size} bytes");
 
       newImageStream.Position = 0;
@@ -131,24 +156,47 @@
         BucketName = dstBucket,
         Key = dstKey,
         InputStream = newImageStream,
-        ContentType = getResult.Result.Headers["Content-Type"],
+        ContentType = getResultTask.Result.Headers["Content-Type"],
         AutoCloseStream = true,
       };
 
-      Task<PutObjectResponse> putResponse = null;
+      Task<PutObjectResponse> putResponseTask = null;
       try
       {
-        putResponse = s3Client.PutObjectAsync(putRequest);
-        putResponse.Wait();
+        putResponseTask = s3Client.PutObjectAsync(putRequest);
+        putResponseTask.Wait();
       }
       catch (Exception ex)
       {
         logger.Logf($"Error saving object {dstKey} to bucket {dstBucket}: {ex.Message}");
+        return CreateResponse($"Error saving object {dstKey} to bucket {dstBucket}: {ex.Message}");
       }
 
-      return null;
+      return CreateResponse("OK");
     }
 
+    /// <summary>
+    /// Creates a response stream with the given message.
+    /// </summary>
+    /// <param name="message">Message to include in response</param>
+    /// <returns>Memory stream containing the message</returns>
+    private Stream CreateResponse(string message)
+    {
+      var ms = new MemoryStream();
+      using (var sw = new StreamWriter(ms, leaveOpen: true))
+      {
+        sw.WriteLine(message);
+      }
+      ms.Position = 0;
+      return ms;
+    }
+
+    /// <summary>
+    /// Resizes an image from the source stream and writes it to the destination stream.
+    /// </summary>
+    /// <param name="srcStream"></param>
+    /// <param name="dstStream"></param>
+    /// <returns></returns>
     private long ResizeImage(Stream srcStream, Stream dstStream)
     {
       using SKCodec codec = SKCodec.Create(srcStream);

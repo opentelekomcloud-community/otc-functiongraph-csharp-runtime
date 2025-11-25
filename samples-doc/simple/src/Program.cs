@@ -11,7 +11,7 @@
   using System.IO;
   using System.Text;
 
-  class Program
+  public class Program
   {
 
     public static void Main(string[] args)

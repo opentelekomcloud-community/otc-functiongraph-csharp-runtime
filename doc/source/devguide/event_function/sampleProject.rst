@@ -1,12 +1,10 @@
 Example for FunctionGraph C# project
-------------------------------------------
+=====================================================
 
 The following example shows a simple C# project for FunctionGraph.
-(:github_repo_master:`Source on GitHub <samples-doc/simple>`)
-
 
 Prerequisites
-^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 - .NET SDKs 2.1, 3.1, 6.0 installed.
 
@@ -20,23 +18,49 @@ Prerequisites
 
   for Ubuntu, see: `Install .NET on Linux <https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install>`_
 
+.. note::
+
+   If you do not have multiple .NET SDKs installed,
+   adapt the project file to only include the target framework
+   you want to use.
+
+   E.g. to work only with .NET 6.0, change in project file **.csproj**:
+
+    .. code-block:: xml
+
+       <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
+
+    to
+
+    .. code-block:: xml
+
+       <TargetFramework>net6.0</TargetFramework>
+
+
+Source
+-----------------------------
+Source for this sample can be found in:
+:github_repo_master:`samples-doc/simple <samples-doc/simple>`.
+
+
 C# project structure
-^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
 A typical C# FunctionGraph project is typically structured as follows:
 
 .. code-block:: text
 
   /simple
-   ├─ Program.cs
-   ├─ handler.txt
-   └─ simple.csproj
-
+   ├─ src
+   |   ├─ Program.cs       # C# program file
+   |   ├─ handler.txt      # handler file (optional)
+   |   └─ simple.csproj    # dotnet project file
+   └─ simple.sln           # dotnet solution file (optional)
 
 C# program file
 ^^^^^^^^^^^^^^^
 
-The main logic for the function resides in C# file Program.cs.
+The main logic for the function resides in C# file **Program.cs**.
 
 .. code-block:: csharp
    :caption: Program.cs
@@ -90,6 +114,15 @@ The main logic for the function resides in C# file Program.cs.
           }
           return new MemoryStream(ms.ToArray());
         }
+
+        /// <summary>
+        /// Main method - not used in FunctionGraph but needed for compilation
+        /// </summary>
+        /// <param name="args"></param>
+        public static void Main(string[] args)
+        {
+          Console.WriteLine("This is a FunctionGraph C# runtime program");
+        }
       }
     }
 
@@ -102,14 +135,19 @@ C# project file
     <Project Sdk="Microsoft.NET.Sdk">
 
       <PropertyGroup>
+        <!-- Disable NuGet package audit and EOL target framework check -->
         <NuGetAudit>false</NuGetAudit>
         <CheckEolTargetFramework>false</CheckEolTargetFramework>
       </PropertyGroup>
 
       <PropertyGroup>
-        <OutputType>Library</OutputType>
+         <!-- OutputType EXE is needed (empty Main method is needed) -->
+        <OutputType>EXE</OutputType>
+        <!-- Target multiple frameworks -->
         <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <!-- Define the assembly name, if not set, the project file name is used -->
+        <AssemblyName>simple</AssemblyName>
       </PropertyGroup>
 
       <ItemGroup>
@@ -134,6 +172,7 @@ C# project file
         <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" />
       </ItemGroup>
 
+      <!-- Create zip package after build to be uploaded to FunctionGraph -->
       <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Build">
         <ZipDirectory
           SourceDirectory="$(OutputPath)"
@@ -149,21 +188,12 @@ Handler file
 This file is not necessary but useful when deploying the
 function using the console.
 
-For a C# function, the handler must be named in the format of
+In this case Function Handler Name is build:
 
-.. code-block:: console
-
-   ASSEMBLY::NAMESPACE.CLASSNAME::METHODNAME
-
-**ASSEMBLY**: name of the .NET assembly file for your application,
-for example: simple.
-
-**NAMESPACE** and **CLASSNAME**: names of the namespace and class
-to which the handler function belongs (as defined in Program.cs: src.Program).
-
-**METHODNAME**: name of the handler function
-(as defined in Program.cs: Handler).
-
+* **AssemblyName**: simple
+* **Namespace**: src
+* **ClassName**: Program
+* **MethodName**: Handler
 
 .. code-block:: text
    :caption: handler.txt
@@ -172,37 +202,56 @@ to which the handler function belongs (as defined in Program.cs: src.Program).
 
 
 Build the project
-^^^^^^^^^^^^^^^^^
+------------------
 
 Project packaging rules for C#
-********************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 When packaging a C# project for FunctionGraph,
 the ZIP file must contain the following files:
 
-* AssemblyName.deps.json,
-* AssemblyName.dll,
-* AssemblyName.runtimeconfig.json,
-* AssemblyName.pdb,
+* **AssemblyName**.deps.json,
+* **AssemblyName**.dll,
+* **AssemblyName**.runtimeconfig.json,
+* **AssemblyName**.pdb,
 * OpenTelekomCloud.Serverless.Function.Common.dll
   (for C# version .NET 6.0 and above) or
 * OpenTelekomCloud.Serverless.Function.Common.legacy.dll
   (for C# version prior to .NET 6.0).
 
-(AssemblyName is the name defined in the project file, as `<AssemblyName>`,
-if this is not defined, the project file name is used)
+.. note::
+   **AssemblyName** is the name defined in the project file, as `<AssemblyName>`,
+   if this is not defined, the project file name is used
 
 
 Example directory of a C# project package
 
-.. code-block:: text
+.. tabs::
 
-    simple_net6.0.zip                                   Example project package
-    ├─ simple.deps.json                                 File generated after project compilation
-    ├─ simple.dll                                       File generated after project compilation
-    ├─ simple.pdb                                       File generated after project compilation
-    ├─ simple.runtimeconfig.json                        File generated after project compilation
-    ├─ handler.txt                                      Help file, which can be directly used
-    └─ OpenTelekomCloud.Serverless.Function.Common.dll  .dll file provided by this runtime package
+  .. tab:: Directory structure for .NET 6.0
+
+      .. code-block:: text
+        :caption: Directory structure for .NET 6.0
+
+          simple_net6.0.zip                                   # Example project package
+          ├─ simple.deps.json                                 # File generated after project compilation
+          ├─ simple.dll                                       # File generated after project compilation
+          ├─ simple.pdb                                       # File generated after project compilation
+          ├─ simple.runtimeconfig.json                        # File generated after project compilation
+          ├─ handler.txt                                      # Help file, which can be directly used
+          └─ OpenTelekomCloud.Serverless.Function.Common.dll  # .dll file provided by this runtime package
+
+  .. tab:: Directory structure for prior to .NET 6.0
+
+      .. code-block:: text
+        :caption: Directory structure for prior to .NET 6.0
+
+          simple_event_timer_netcoreapp3.1.zip                                          # Example project package
+          ├─ simple.deps.json                                        # File generated after project compilation
+          ├─ simple.dll                                              # File generated after project compilation
+          ├─ simple.pdb                                              # File generated after project compilation
+          ├─ simple.runtimeconfig.json                               # File generated after project compilation
+          ├─ handler.txt                                             # Help file, which can be directly used
+          └─ HC.Serverless.Function.Common.legacy.dll  # .dll file provided by this runtime package
 
 
 This deployment zip will be created automatically
@@ -210,11 +259,11 @@ when you build the project using the following command:
 
 .. code-block:: bash
 
-   dotnet build
+   dotnet build -c Release
 
 This command builds the project for all target frameworks
-defined in **simple.csproj** and creates a zip file for each target framework
-in the project folder.
+defined in the project file and creates a zip file for each target framework
+in the project/src folder.
 
 The generated zip files are:
 
@@ -223,14 +272,47 @@ The generated zip files are:
 - simple_netcoreapp2.1.zip
 
 Deploy the function
-^^^^^^^^^^^^^^^^^^^^^
-You can deploy the generated zip files to FunctionGraph
-as Event Function using the console:
+--------------------
 
-1. In FunctionGraph console, create a new **Event Function** with
-   - **Function Name**: **sample**
-   - **Runtime**: **C# (.NET 6.0)**
-2. Upload the generated zip file **simple_net6.0.zip**.
-3. In **Configuration** ->  **General** set **Handler** to the
-   handler name defined in **handler.txt**
+Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
+to create a function with following settings:
 
+Create function
+^^^^^^^^^^^^^^^^^^^^
+
+**Create With**:  Create from scratch
+
+**Basic Information**
+
+* **Function Type**  Event Function
+* **Region**  <YOUR REGION>
+* **Function Name** <YOUR FUNCTION NAME>
+* **Runtime**  C# (.NET 6.0)
+
+Upload code
+^^^^^^^^^^^^^^^^^^^^
+
+Use **Upload** -> **Local ZIP** and upload *simple_net6.0.zip*
+from previous step.
+
+Configure function
+^^^^^^^^^^^^^^^^^^^^
+
+* In **Configuration** -> **Basic Settings** -> **Handler**:
+  set value to name as defined in **handler.txt**
+
+Test the function
+-------------------
+
+Create Test Event
+^^^^^^^^^^^^^^^^^^^^
+
+In **Code** create a Test Event using "Blank Template".
+
+Test function
+^^^^^^^^^^^^^^^^^^^^
+
+Click **Test** to test function.
+
+The function execution result is displayed in the
+**Execution Result** section.

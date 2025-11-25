@@ -55,6 +55,7 @@ Parameter description
 
 Notes
 -----
+.. _ref_apig_event_base64:
 
 - When calling a function using APIG, **isBase64Encoded** is valued true by
   default, indicating that the request body transferred to FunctionGraph is

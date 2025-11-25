@@ -15,3 +15,6 @@ nupkgs/
 *.tfstate
 *.tfstate.backup
 local_test/
+tf_deployed_resources.yaml
+
+event-timer-obs-download/

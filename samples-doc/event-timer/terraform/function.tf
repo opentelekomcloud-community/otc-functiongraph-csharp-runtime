@@ -6,15 +6,16 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   app  = "default"
   #  agency      = var.agency_name
   handler          = var.function_handler_name
+
   description      = "Sample for timer triggered FunctionGraph using terraform."
   memory_size      = 128
   timeout          = 30
   max_instance_num = 400
 
-  runtime       = var.runtime
+  runtime       = var.function_runtime
   code_type     = "zip"
-  func_code     = filebase64(format("${path.module}/../%s", var.zip_file_name))
-  code_filename = var.zip_file_name
+  func_code     = filebase64(var.zip_file_local)
+  code_filename = basename(var.zip_file_local)
 
   log_group_id   = opentelekomcloud_lts_group_v2.MyLogGroup.id
   log_group_name = opentelekomcloud_lts_group_v2.MyLogGroup.group_name
@@ -22,6 +23,10 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   log_topic_id   = opentelekomcloud_lts_stream_v2.MyLogStream.id
   log_topic_name = opentelekomcloud_lts_stream_v2.MyLogStream.stream_name
 
+
+  tags = {
+    "app_group" = var.tag_app_group
+  }
 }
 
 ##########################################################
@@ -30,6 +35,10 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
 resource "opentelekomcloud_lts_group_v2" "MyLogGroup" {
   group_name  = format("%s_%s_%s", var.prefix, var.function_name, "log_group")
   ttl_in_days = 1
+
+  tags = {
+    "app_group" = var.tag_app_group
+  }
 }
 
 ##########################################################
@@ -38,6 +47,10 @@ resource "opentelekomcloud_lts_group_v2" "MyLogGroup" {
 resource "opentelekomcloud_lts_stream_v2" "MyLogStream" {
   group_id    = opentelekomcloud_lts_group_v2.MyLogGroup.id
   stream_name = format("%s_%s_%s", var.prefix, var.function_name, "log_stream")
+
+  tags = {
+    "app_group" = var.tag_app_group
+  }
 }
 
 ##########################################################
