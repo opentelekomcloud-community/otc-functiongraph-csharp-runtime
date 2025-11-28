@@ -29,7 +29,7 @@ public class Program
 
     app.MapGet("/test", async context =>
     {
-      string requestId = context.Request.Headers["x-cff-request-id"];
+      string? requestId = context.Request.Headers["x-cff-request-id"];
 
       await context.Response.WriteAsync($"Request ID is: {requestId}");
     });

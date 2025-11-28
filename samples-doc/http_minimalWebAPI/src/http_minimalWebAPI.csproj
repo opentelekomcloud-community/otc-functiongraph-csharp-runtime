@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <!-- ####### add below to your .csproj ###### -->
@@ -12,10 +13,25 @@
     <ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <ItemGroup>
+     <!-- Include README.md in package if exists in parent folder -->
+    <Content Include="../README.md" Condition="Exists('../README.md')">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <CopyToOutput>true</CopyToOutput>
+      <BuildAction>Content</BuildAction>
+      <copyToOutput>true</copyToOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>  
+
   <!-- ## bootstrap file content -->
   <PropertyGroup>
     <GeneratedBootstrapFile>
 <![CDATA[
+export CREATE_DATE="$([System.DateTime]::Now.ToString("yyyy-MM-ddTHH:mm:ssZ"))"
 # functiongraph requires to listen on port 8000
 export ASPNETCORE_URLS=http://localhost:8000/
 # set content root to $RUNTIME_CODE_ROOT
