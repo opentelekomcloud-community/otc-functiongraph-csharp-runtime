@@ -36,6 +36,21 @@ Set following environment variables:
         - Secret key
         - see: :api_usage:`Generating an AK and SK<guidelines/calling_apis/ak_sk_authentication/generating_an_ak_and_sk.html>` in API usage guide.
 
+      * - TF_VAR_OTC_USER_NAME
+        - User name
+        - In some cases needed for authentication.
+          e.g. Update function code from OBS bucket.
+
+      * - TF_VAR_OTC_USER_PASSWORD
+        - User password
+        - In some cases needed for authentication,
+          e.g. Update function code from OBS bucket.
+
+      * - TF_VAR_OTC_SDK_REGION
+        - Region name
+        - e.g. *eu-de*, *eu-nl*
+          see: :api_usage:`Obtaining the Region Name<guidelines/calling_apis/obtaining_required_information.html>` in API usage guide.
+
       * - TF_VAR_OTC_SDK_DOMAIN_NAME
         - Domain Name
         - see: :api_usage:`Obtaining the Domain Name and Domain ID<guidelines/calling_apis/obtaining_required_information.html>` in API usage guide.

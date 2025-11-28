@@ -4,18 +4,22 @@
 resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   name = format("%s_%s", var.prefix, var.function_name)
   app  = "default"
-  #  agency      = var.agency_name
+
   handler          = var.function_handler_name
 
   description      = "Sample for timer triggered FunctionGraph using terraform."
   memory_size      = 128
   timeout          = 30
-  max_instance_num = 400
+  max_instance_num = 10
 
   runtime       = var.function_runtime
+  
+  # -------------------------------------------------------------- #
+  # Upload code as ZIP file directly
   code_type     = "zip"
   func_code     = filebase64(var.zip_file_local)
   code_filename = basename(var.zip_file_local)
+  # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
   log_group_id   = opentelekomcloud_lts_group_v2.MyLogGroup.id
   log_group_name = opentelekomcloud_lts_group_v2.MyLogGroup.group_name

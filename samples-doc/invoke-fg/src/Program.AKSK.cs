@@ -42,6 +42,8 @@ namespace src
       var function_URN = $"urn:fss:{region}:{projectID}:function:{functionApp}:{functionName}:{functionVersion}";
       var invokeURI = $"{fgEndpoint}/v2/{projectID}/fgs/functions/{function_URN}/invocations";
 
+      // Create Signer
+      // see: https://docs.otc.t-systems.com/developer/api_guidelines/calling_apis/ak_sk_authentication/index.html#ak-sk-authentication
       Signer signer = new Signer{
         Key = ak,
         Secret = sk
