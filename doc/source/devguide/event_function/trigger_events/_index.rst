@@ -6,6 +6,7 @@ Overview of Trigger Events
 
    APIG Event <trigger_apig_event>
    CTS Event <trigger_cts_event>
+   DDS Event <trigger_dds_event>
    Kafka Event <trigger_kafka_event>
    LTS Event <trigger_lts_event>
    OBS Event <trigger_obs_event>

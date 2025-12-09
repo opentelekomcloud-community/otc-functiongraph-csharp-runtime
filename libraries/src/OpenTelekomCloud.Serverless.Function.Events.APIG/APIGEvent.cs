@@ -46,23 +46,10 @@
     public PathParameters PathParameters { get; set; }
 
     /// <summary>
-    /// complete headers:
-    /// "accept-language", 
-    /// "accept-encoding",
-    /// "x-forwarded-port",
-    /// "x-forwarded-for",
-    /// "accept",
-    /// "upgrade-insecure-requests",
-    /// "host"
-    /// "x-forwarded-proto",
-    /// "pragma",
-    /// "cache-control",
-    /// "x-real-ip", 
-    /// "user-agent"
+    /// complete headers
     /// </summary>
-
     [JsonProperty("headers", NullValueHandling = NullValueHandling.Ignore)]
-    public Dictionary<string, string> Headers { get; set; }
+    public Headers Headers { get; set; }
 
     /// <summary>
     /// complete path
@@ -88,57 +75,81 @@
     }
   }
 
-
-
-
-public class RequestContext
-{
-  [JsonProperty("apiId", NullValueHandling = NullValueHandling.Ignore)]
-  public string ApiId { get; set; }
-
-  [JsonProperty("requestId", NullValueHandling = NullValueHandling.Ignore)]
-  public string RequestId { get; set; }
-
-  [JsonProperty("stage", NullValueHandling = NullValueHandling.Ignore)]
-  public string Stage { get; set; }
-}
-
-public class QueryStringParameters
-{
-  [JsonProperty("responseType", NullValueHandling = NullValueHandling.Ignore)]
-  public string ResponseType { get; set; }
-
-  [JsonExtensionData]
-  public IDictionary<string, JToken> _parameters;
-}
-
-public class PathParameters
-{
-  [JsonExtensionData]
-  public IDictionary<string, JToken> _parameters;
-
-  public override string ToString()
+  public class Headers
   {
-    return JsonConvert.SerializeObject(this);
+    [JsonProperty("accept-language", NullValueHandling = NullValueHandling.Ignore)]
+    public string AcceptLanguage { get; set; }
+
+    [JsonProperty("accept-encoding", NullValueHandling = NullValueHandling.Ignore)]
+    public string AcceptEncoding { get; set; }
+
+    [JsonProperty("x-forwarded-port", NullValueHandling = NullValueHandling.Ignore)]
+    public string XForwardedPort { get; set; }
+
+    [JsonProperty("x-forwarded-for", NullValueHandling = NullValueHandling.Ignore)]
+    /// <summary>
+    /// A common method to identify the originating IP address of a client connecting to a web server
+    /// </summary>
+    public string XForwardedFor { get; set; }
+
+    [JsonProperty("accept", NullValueHandling = NullValueHandling.Ignore)]
+    /// <summary> 
+    ///   Indicates the media types that are acceptable for the response.
+    /// </summary>
+    public string Accept { get; set; }
+
+    [JsonProperty("upgrade-insecure-requests", NullValueHandling = NullValueHandling.Ignore)]
+    public string UpgradeInsecureRequests { get; set; }
+
+    [JsonProperty("host", NullValueHandling = NullValueHandling.Ignore)]
+    public string Host { get; set; }
+
+    [JsonProperty("x-forwarded-proto", NullValueHandling = NullValueHandling.Ignore)]
+    public string XForwardedProto { get; set; }
+
+    [JsonProperty("pragma", NullValueHandling = NullValueHandling.Ignore)]
+    public string Pragma { get; set; }
+
+    [JsonProperty("cache-control", NullValueHandling = NullValueHandling.Ignore)]
+    public string CacheControl { get; set; }
+
+    [JsonProperty("x-real-ip", NullValueHandling = NullValueHandling.Ignore)]
+    public string XRealIp { get; set; }
+
+    [JsonProperty("user-agent", NullValueHandling = NullValueHandling.Ignore)]
+    public string UserAgent { get; set; }
   }
 
-}
+  public class RequestContext
+  {
+    [JsonProperty("apiId", NullValueHandling = NullValueHandling.Ignore)]
+    public string ApiId { get; set; }
 
-public class APIGResponse
-{
-  [JsonProperty("body", NullValueHandling = NullValueHandling.Ignore)]
-  public string Body { get; set; }
+    [JsonProperty("requestId", NullValueHandling = NullValueHandling.Ignore)]
+    public string RequestId { get; set; }
 
-  [JsonProperty("headers", NullValueHandling = NullValueHandling.Ignore)]
-  public Dictionary<string, string> Headers { get; set; }
+    [JsonProperty("stage", NullValueHandling = NullValueHandling.Ignore)]
+    public string Stage { get; set; }
+  }
 
-  [JsonProperty("statusCode", NullValueHandling = NullValueHandling.Ignore)]
-  public int StatusCode { get; set; }
+  public class QueryStringParameters
+  {
+    [JsonProperty("responseType", NullValueHandling = NullValueHandling.Ignore)]
+    public string ResponseType { get; set; }
 
-  [JsonProperty("isBase64Encoded", NullValueHandling = NullValueHandling.Ignore)]
-  public bool IsBase64Encoded { get; set; }
+    [JsonExtensionData]
+    public IDictionary<string, JToken> _parameters;
+  }
 
+  public class PathParameters
+  {
+    [JsonExtensionData]
+    public IDictionary<string, JToken> _parameters;
 
-}
+    public override string ToString()
+    {
+      return JsonConvert.SerializeObject(this);
+    }
 
+  }
 }

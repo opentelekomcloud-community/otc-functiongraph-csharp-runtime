@@ -60,8 +60,8 @@ To deploy the HTTP Function using terraform follow these steps:
 
 2. Adjust the ``http.tfvars`` file according to your needs.
 
-   Set the **API_GATEWAY_INSTANCE_ID** variable to your API Gateway
-   instance ID (or define it as environment variable `TF_VAR_API_GATEWAY_INSTANCE_ID`).
+   Set the **api_gateway_instance_id** variable to your API Gateway
+   instance ID.
 
    .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/http.tfvars
       :language: hcl

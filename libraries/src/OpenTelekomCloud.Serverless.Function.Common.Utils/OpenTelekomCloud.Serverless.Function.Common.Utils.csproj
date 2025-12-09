@@ -9,6 +9,8 @@
     
     <AssemblyName>OpenTelekomCloud.Serverless.Function.Common.Utils</AssemblyName>
 
+    <Version>1.0.0.0</Version>
+
     <RootNamespace>OpenTelekomCloud.Serverless.Function.Common.Utils</RootNamespace>
 
     <PackageId>OpenTelekomCloud.Serverless.Function.Common.Utils</PackageId>

@@ -1,5 +1,5 @@
 locals {
-  API_GATEWAY_INSTANCE_ID = var.API_GATEWAY_INSTANCE_ID
+  API_GATEWAY_INSTANCE_ID = var.api_gateway_instance_id
   ENV_NAME                = "RELEASE"
   ENV_ID                  = "DEFAULT_ENVIRONMENT_RELEASE_ID"
 }

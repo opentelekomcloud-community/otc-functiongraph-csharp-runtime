@@ -130,8 +130,7 @@ resource  "terracurl_request" "update_function_code" {
 
 }
 
-# output "update_function_code_status" {
-#   description = "The status of the function code update request"
-#   value = terracurl_request.update_function_code
-#   sensitive = false
-# }
+output "update_function_code_status" {
+  value = terracurl_request.update_function_code
+  sensitive = true
+}

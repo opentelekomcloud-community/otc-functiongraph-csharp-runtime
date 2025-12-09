@@ -34,7 +34,7 @@ variable "tag_app_group" {
   # default = "csharp-doc-sample-event-timer"
 }
 
-variable "API_GATEWAY_INSTANCE_ID" {
+variable "api_gateway_instance_id" {
   type = string
   # default = "your_api_gateway_instance_id"
 }

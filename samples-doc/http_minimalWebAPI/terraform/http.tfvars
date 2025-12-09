@@ -19,5 +19,4 @@ zip_file_local="../src/http_minimalWebAPI_net8.0.zip"
 tag_app_group="csharp-doc-sample-minimal-webapi"
 
 # change to your API Gateway instance ID
-# set as env var TF_VAR_API_GATEWAY_INSTANCE_ID or uncomment and set here
-#API_GATEWAY_INSTANCE_ID="YOUR_API_GATEWAY_INSTANCE_ID"
+api_gateway_instance_id="46af2dde65dc4323b0f1178c1a8a7926"
