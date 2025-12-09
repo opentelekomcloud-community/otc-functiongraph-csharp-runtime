@@ -141,7 +141,6 @@ Use **Upload** -> **Local ZIP** and upload the generated ZIP file from step 1
 Configure function
 ^^^^^^^^^^^^^^^^^^^^
 
-
 Create an API Gateway trigger for the function to expose it
 as an HTTP endpoint.
 

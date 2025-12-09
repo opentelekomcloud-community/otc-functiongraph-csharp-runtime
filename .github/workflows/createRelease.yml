@@ -1,5 +1,15 @@
 name: publishPackage
 
+# Workflow creates and publishes NuGet packages to GitHub Packages
+# and creates a GitHub Release with release notes when a new tag is pushed.
+#
+# Usage:
+# - Prepare release notes in releasenotes/vX.Y.Z.md before creating the tag.
+# - commit and push all changes to the main branch.
+# - Create and push a version tag (e.g., v1.0.0) to trigger the workflow, ex.:
+#    git tag v1.0.0
+#    git push origin v1.0.0
+
 on:
   workflow_dispatch:
 
@@ -50,8 +60,8 @@ jobs:
         with:
           # tag: $
           name: ${{github.ref_name}}
-          # bodyFile: relnotes/$.md
           token: ${{ github.token }}
           generateReleaseNotes: true
-          draft: true
-          prerelease: true
+          allowUpdates: true
+          bodyFile: releasenotes/${{ github.ref_name }}.md
+          replacesArtifacts: true
