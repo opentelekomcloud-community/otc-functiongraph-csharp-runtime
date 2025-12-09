@@ -1,4 +1,4 @@
-# prefix will be prepended to all ressource names
+# prefix will be prepended to all resource names
 variable "prefix" {
   type    = string
   # default = "sample"
@@ -34,7 +34,7 @@ variable "tag_app_group" {
   # default = "csharp-doc-sample-event-timer"
 }
 
-variable "api_gateway_instance_id" {
+variable "API_GATEWAY_INSTANCE_ID" {
   type = string
   # default = "your_api_gateway_instance_id"
 }

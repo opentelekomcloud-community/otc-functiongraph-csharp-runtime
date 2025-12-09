@@ -1,7 +1,7 @@
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))/..
 current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
-BACKEND_CONFIG_BUCKET := "sample-tf-backend"
+BACKEND_CONFIG_BUCKET := "doc-samples-tf-backend"
 BACKEND_CONFIG_KEY := "terraform_state/csharp/doc-sample-event-s3obs-thumbnail.tf"
 BACKEND_CONFIG_REGION := "eu-de"
 BACKEND_CONFIG_ENDPOINTS := "endpoints={s3=\"https://obs.eu-de.otc.t-systems.com\"}"
