@@ -45,37 +45,34 @@ Event libraries
 
   Event library for Cloud Trace Service (CTS) timer events.
 
-- :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.DDS </libraries/src/OpenTelekomCloud.Serverless.Function.Events.DDS>`
-  
-  Event library for Document Database Service (DDS) events.
-
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.DMS4Kafka </libraries/src/OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka>`
-  
+
   Event library for Distributed Messaging Service for Kafka events.
 
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.LTS </libraries/src/OpenTelekomCloud.Serverless.Function.Events.LTS>`
-  
+
   Event library for Log Tank Service (LTS) events.
 
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.OBSS3 </libraries/src/OpenTelekomCloud.Serverless.Function.Events.OBSS3>`
-  
+
   Event library for Object Storage Service (OBS) S3 events.
 
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.OOpenSourceKafka </libraries/src/OpenTelekomCloud.Serverless.Function.Events.OpenSourceKafka>`
-  
+
   Event library for Open Source Kafka events.
 
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.SMN </libraries/src/OpenTelekomCloud.Serverless.Function.Events.SMN>`
-  
+
   Event library for Simple Message Notification (SMN) events.
 
 - :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.Events.Timer </libraries/src/OpenTelekomCloud.Serverless.Function.Events.CTS>`
-  
-  Event library for Timer events.  
+
+  Event library for Timer events.
 
 
 Additional libraries
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+
 OpenTelekomCloud community provides following libraries for C# development:
 
 * The community edition of `OTC SDK for API signing in C# <https://github.com/opentelekomcloud-community/otc-api-sign-sdk-csharp>`_
