@@ -8,13 +8,23 @@
     <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Common</AssemblyTitle>
     <AssemblyName>OpenTelekomCloud.Serverless.Function.Common</AssemblyName>
 
-
-    <RootNamespace>OpenTelekomCloud.Serverless.Function.Common</RootNamespace>
-
     <PackageId>OpenTelekomCloud.Serverless.Function.Common</PackageId>
     <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Common</RootNamespace>
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Common</AssemblyTitle>
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Common</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup
+    Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
+    <RootNamespace>HC.Serverless.Function.Common</RootNamespace>
+    <AssemblyTitle>HC.Serverless.Function.Common</AssemblyTitle>
+    <AssemblyName>HC.Serverless.Function.Common</AssemblyName>
   </PropertyGroup>
 
 </Project>

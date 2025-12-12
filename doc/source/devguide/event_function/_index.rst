@@ -26,13 +26,7 @@ Core libraries
 
   This library provides the Context structure, which contains
   the runtime information of the function and provides
-  methods to obtain the runtime information. (**For .NET 6.0 and later versions**)
-
-- :github_repo_master:`OpenTelekomCloud.Serverless.Function.Common.legacy</libraries/src/OpenTelekomCloud.Serverless.Function.Common.legacy>`
-
-  This library provides the Context structure, which contains
-  the runtime information of the function and provides
-  methods to obtain the runtime information. (**prior to .NET 6.0 versions**)
+  methods to obtain the runtime information.
 
 Event libraries
 ^^^^^^^^^^^^^^^^

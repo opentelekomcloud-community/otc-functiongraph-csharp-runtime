@@ -36,14 +36,14 @@
     <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(MSBuildProjectDirectory)\$(MSBuildProjectName)_$(TargetFramework).zip" Overwrite="true" />
   </Target>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
-    <PackageReference Include="SkiaSharp" Version="3.119.1" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
+
+  <ItemGroup>
+      <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
-    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" />
+  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
   </ItemGroup>
 
   <ItemGroup>

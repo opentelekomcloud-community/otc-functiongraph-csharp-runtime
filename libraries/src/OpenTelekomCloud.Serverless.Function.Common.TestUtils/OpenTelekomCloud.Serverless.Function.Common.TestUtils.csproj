@@ -3,17 +3,10 @@
   <Import Project="..\..\..\buildtools\common.props" />
 
   
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+  <ItemGroup>
     <!-- <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" /> -->
      <ProjectReference Include="..\OpenTelekomCloud.Serverless.Function.Common\OpenTelekomCloud.Serverless.Function.Common.csproj" />
   </ItemGroup>
-
-  <ItemGroup
-    Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
-    <!-- <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" /> -->
-    <ProjectReference Include="..\OpenTelekomCloud.Serverless.Function.Common.legacy\OpenTelekomCloud.Serverless.Function.Common.legacy.csproj" />
-  </ItemGroup>
-  
 
   <PropertyGroup>
 

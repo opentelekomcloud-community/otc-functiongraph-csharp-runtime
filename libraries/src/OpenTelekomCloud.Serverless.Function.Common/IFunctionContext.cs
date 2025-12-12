@@ -1,4 +1,8 @@
-﻿namespace OpenTelekomCloud.Serverless.Function.Common
+﻿#if NET6_0_OR_GREATER
+namespace OpenTelekomCloud.Serverless.Function.Common
+#else
+namespace HC.Serverless.Function.Common
+#endif
 {
   /// <summary>
   /// The Context interface allows functions to obtain the function execution context,
