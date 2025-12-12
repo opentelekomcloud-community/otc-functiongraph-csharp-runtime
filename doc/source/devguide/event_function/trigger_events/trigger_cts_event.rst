@@ -1,15 +1,31 @@
-Cloud Trace Service Trigger CTS
-===============================
+CTS Event Source
+==================
 
-You can write a FunctionGraph function. According to the CTS cloud audit
-service type and the event notification required for the operation subscription,
+FunctionGraph's CTS trigger (Cloud Trace Service Trigger) is a trigger type
+based on the Cloud Trace Service (CTS) that can monitor and respond to
+OpenTelekomCloud resource operation events.
+
+Through CTS triggers, you can implement security auditing, compliance
+monitoring, automated response, event notification, and other functions.
+
+CTS triggers are particularly suitable for scenarios that require
+real-time monitoring of cloud resource operations, security auditing,
+and automated operations, such as resource change monitoring,
+security event response, compliance checks, operation log analysis, etc.
+
+According to the CTS cloud audit service type and the event notification
+required for the operation subscription,
 when the CTS cloud audit service obtains the subscribed operation record, the
 collected operation record is passed as a parameter (CTS sample event) through
-the CTS trigger to call the FunctionGraph function. Through the function, the
-key information in the log is analyzed and processed, and the system, network
-and other business modules are automatically repaired, or alarms are generated
-through SMS, email, etc. to notify business personnel to handle. For the use of
-CTS triggers, please refer to `Using a CTS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_cts_trigger.html>`__.
+the CTS trigger to call the FunctionGraph function.
+
+Through the function, the key information in the log is analyzed and processed,
+and the system, network and other business modules are automatically repaired,
+or alarms are generated through SMS, email, etc. to notify business personnel
+to handle.
+
+For details, see
+`Using a CTS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_cts_trigger.html>`_.
 
 CTS example event
 -----------------

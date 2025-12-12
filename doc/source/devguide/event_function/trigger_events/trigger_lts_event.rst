@@ -1,12 +1,14 @@
-Log Trigger LTS
-===============
+LTS Event Source
+=================
 
 You can write FunctionGraph functions to process logs subscribed to Cloud Log
 Service. When Cloud Log Service collects subscribed logs, you can call
 FunctionGraph functions by passing the collected logs as parameters (LTS sample
 events). FunctionGraph function code can be customized, analyzed, or loaded
-into other systems. For the use of LTS log triggers, please refer to
-`Using a LTS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_lts_trigger.html>`__.
+into other systems.
+
+For details, see
+`Using a LTS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_lts_trigger.html>`_.
 
 Example LTS Event
 -----------------
@@ -33,6 +35,6 @@ Parameter description
 Example
 -------
 
-.. .. literalinclude:: /../../samples-doc/event-lts/Program.cs
+.. .. literalinclude:: /../../samples-doc/event-lts/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-lts/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-lts/src/Program.cs>`

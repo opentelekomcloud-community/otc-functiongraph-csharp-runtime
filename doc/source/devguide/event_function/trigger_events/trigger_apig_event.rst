@@ -2,20 +2,24 @@ APIG Event Source
 =================
 
 API Gateway (APIG) is an API hosting service that helps enterprises to build,
-manage, and deploy APIs at any scale. With APIG, your function can be invoked
-through HTTPS by using a custom REST API and a specified backend. You can map
-each API operation (such as, GET and PUT) to a specific function. APIG invokes
-the relevant function when an HTTPS request is sent to the API backend.
+manage, and deploy APIs at any scale.
 
-For more information about how to use HTTPS calls to trigger functions, see
-`Using an APIG (Dedicated) trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_apig_dedicated_trigger.html#>`__.
+With APIG, your function can be invoked through HTTPS by using a custom
+REST API and a specified backend.
+
+You can map each API operation (such as, GET and PUT) to a specific function.
+APIG invokes the relevant function when an HTTPS request is sent to the API
+backend.
+
+For details, see
+`Using an APIG (Dedicated) trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_apig_dedicated_trigger.html#>`_.
 
 Example APIG Event
 ------------------
 
-.. literalinclude:: /../../samples-doc/event-apig/resources/apig_event.json
+.. literalinclude:: /../../samples-doc/event-apig/resources/apig_base64_event.json
     :language: json
-    :caption: :github_repo_master:`apig_event.json <samples-doc/event-apig/resources/apig_event.json>`
+    :caption: :github_repo_master:`apig_base64_event.json <samples-doc/event-apig/resources/apig_base64_event.json>`
 
 
 Parameter description
@@ -30,7 +34,7 @@ Parameter description
      - Description
    * - body
      - String
-     - Actual request in string format.
+     - Actual request body in string format (Base64 encoded).
    * - requestContext
      - Map
      - Request information, including the API gateway configuration, request ID, authentication information, and source.
@@ -57,24 +61,28 @@ Notes
 -----
 .. _ref_apig_event_base64:
 
-- When calling a function using APIG, **isBase64Encoded** is valued true by
+- When calling a function using APIG, **isBase64Encoded** is valued **true** by
   default, indicating that the request body transferred to FunctionGraph is
   encoded using Base64 and must be decoded for processing.
 
-- The function must return characters strings by using the following structure.
+- The function must return an APIGResponse object serialized to a
+  Stream with following structure:
 
-  .. code-block:: json
+  .. code-block:: csharp
 
+     APIGResponse
      {
-       "isBase64Encoded": "true|false",
-       "statusCode": "httpStatusCode",
-       "headers": {"headerName":"headerValue"},
-       "body": "..."
+       int StatusCode;                      // HTTP status code (e.g., 200, 404, 500)
+       string Body;                         // Response body content
+       bool IsBase64Encoded;                // Whether the body is base64 encoded
+       Dictionary<string, string> Headers;  // HTTP response headers
      }
+
+
 
 Example
 -------
 
-.. .. literalinclude:: /../../samples-doc/event-apig/Program.cs
+.. literalinclude:: /../../samples-doc/event-apig/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-apig/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-apig/src/Program.cs>`

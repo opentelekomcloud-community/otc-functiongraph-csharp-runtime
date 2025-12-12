@@ -5,8 +5,10 @@ Simple Message Notification (SMN) sends messages to email addresses, mobile
 phones, or HTTP/HTTPS URLs. If you create a function with an SMN trigger,
 messages published to a specified topic will be passed as a parameter to invoke
 the function. Then, the function processes the event, for example, publishing
-messages to other SMN topics or sending them to other cloud services. For
-details, see `Using an SMN Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_smn_trigger.html>`__.
+messages to other SMN topics or sending them to other cloud services.
+
+For details, see
+`Using an SMN Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_smn_trigger.html>`_.
 
 SMN example event
 -----------------
@@ -60,6 +62,6 @@ Parameter description
 Example
 -------
 
-.. .. literalinclude:: /../../samples-doc/event-smn/Program.cs
+.. .. literalinclude:: /../../samples-doc/event-smn/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-smn/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-smn/src/Program.cs>`

@@ -1,3 +1,3 @@
-# HC.Serverless.Function.Events.SMN
+# OpenTelekomCloud.Serverless.Function.Events.SMN
 
 This package contains interfaces and classes that can be helpful when running your .NET code on the OpenTelekomCloud platform.

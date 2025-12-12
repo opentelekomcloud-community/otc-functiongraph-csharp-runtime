@@ -4,6 +4,7 @@ C# FunctionGraph samples
    :hidden:
    :maxdepth: 1
 
-    Timer Event<sample_timer_event/_index>
+    APIG Event<event_apig/_index>
+    Timer Event<event_timer/_index>
     OBS (S3) Samples <obssamples/_index>
     SDK Samples <sdksamples/_index>

@@ -1,3 +1,5 @@
-# HC.Serverless.Function.Events.DMS4Kafka
+# OpenTelekomCloud.Serverless.Function.Events.DMS4Kafka
 
 This package contains interfaces and classes that can be helpful when running your .NET code on the OpenTelekomCloud platform.
+
+For details, see [DMS4Kafka Event](https://opentelekomcloud-community.github.io/otc-functiongraph-csharp-runtime/devguide/event_function/trigger_events/trigger_dms4kafka_event.html)

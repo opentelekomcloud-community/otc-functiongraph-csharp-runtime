@@ -22,4 +22,9 @@
     <ProjectReference Include="..\src\serialization_simple.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.TestUtils"
+      Version="*-*" />  
+  </ItemGroup>
+
 </Project>

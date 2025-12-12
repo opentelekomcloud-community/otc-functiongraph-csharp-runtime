@@ -2,15 +2,6 @@
 
 C# runtime libraries for FunctionGraph on OpenTelekomCloud.
 
-> [!Note]
-> <pre>
-> ###############################################
->             Work in progress....
->     !! SUBJECT TO CHANGE WITHOUT NOTICE !!
-> ###############################################
-> </pre>
->  
-
 ## Documentation
 
 For documentation see: [otc-functiongraph-csharp-runtime](https://opentelekomcloud-community.github.io/otc-functiongraph-csharp-runtime/)

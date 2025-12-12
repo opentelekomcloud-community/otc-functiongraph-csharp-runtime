@@ -13,7 +13,7 @@ public class UnitTest1
     {
         // Arrange
         var program = new Program();
-        var context = new TestContext();
+        var context = new TestContextSimple();
         
         string jsonInput = "{\"Key\":\"TestValue\"}";
         var inputStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonInput));

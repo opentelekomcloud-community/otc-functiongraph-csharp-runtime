@@ -1,9 +1,20 @@
 Timer Event Source
 ==================
 
-You can schedule a timer to invoke your code based on a fixed rate of minutes,
-hours, or days or a cron expression. For details, see
-`Using a Timer Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_timer_trigger.html>`__.
+FunctionGraph's timer trigger (Timer Trigger) is a trigger type based
+on time scheduling that supports both `Cron expression` and `fixed interval
+scheduling` methods.
+
+Through timer triggers, you can implement scheduled tasks,
+periodic data processing, scheduled backups, scheduled monitoring,
+and other functions.
+
+Timer triggers are particularly suitable for tasks that need to be executed at
+fixed time intervals or specific time points, such as data cleanup,
+report generation, system monitoring, scheduled notifications, etc.
+
+For details, see
+`Using a Timer Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_a_timer_trigger.html>`_.
 
 Timer example event
 -------------------

@@ -1,7 +1,8 @@
-OBS Event Source
-================
+OBS (S3) Event Source
+=====================
 
-For details, see `Using an OBS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_obs_trigger.html>`__.
+For details, see
+`Using an OBS Trigger <https://docs.otc.t-systems.com/function-graph/umn/creating_triggers/using_an_obs_trigger.html>`_.
 
 Hints
 -----
@@ -156,6 +157,6 @@ Parameter object
 Example
 -------
 
-.. .. literalinclude:: /../../samples-doc/event-obs/Program.cs
+.. .. literalinclude:: /../../samples-doc/event-obs/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-obs/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-obs/src/Program.cs>`

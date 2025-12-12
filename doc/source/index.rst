@@ -15,11 +15,6 @@ FunctionGraph on OpenTelekomCloud.
    Samples <samples/_index>
    Best Practices <devguide/bestpractices/_index>
 
-
-.. warning::
-
-   Work in progress. Subject to change without notice.
-
 .. note::
 
   Samples and descriptions are indented to work with Ubuntu/Linux environment.

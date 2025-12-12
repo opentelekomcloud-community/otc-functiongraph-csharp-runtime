@@ -31,6 +31,7 @@ extensions = [
      'sphinx_substitution_extensions',
      'sphinx.ext.extlinks',
      "sphinx.ext.githubpages",
+     'myst_parser',
 
 ]
 

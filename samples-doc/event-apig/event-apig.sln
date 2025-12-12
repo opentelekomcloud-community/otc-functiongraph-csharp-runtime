@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_apig", "src\event_apig.csproj", "{FE14C703-1E59-4F7B-88B1-ED902EC1CEB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_apig.test", "test\event_apig.test.csproj", "{4F7A62D6-A293-4852-A222-188273F7CE1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE14C703-1E59-4F7B-88B1-ED902EC1CEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE14C703-1E59-4F7B-88B1-ED902EC1CEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE14C703-1E59-4F7B-88B1-ED902EC1CEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE14C703-1E59-4F7B-88B1-ED902EC1CEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F7A62D6-A293-4852-A222-188273F7CE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F7A62D6-A293-4852-A222-188273F7CE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F7A62D6-A293-4852-A222-188273F7CE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F7A62D6-A293-4852-A222-188273F7CE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

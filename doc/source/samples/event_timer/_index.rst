@@ -10,8 +10,6 @@ Source
 Source for this sample can be found in:
 :github_repo_master:`/samples-doc/event-timer <samples-doc/event-timer>`.
 
-
-
 Deployment
 ----------
 This sample can be deployed using Terraform,

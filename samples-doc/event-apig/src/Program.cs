@@ -23,10 +23,13 @@
     {
       Console.WriteLine("This is a FunctionGraph C# runtime program");
     }
+
+    /// <summary>
+    /// Handler method for APIG event
+    /// </summary>
     public Stream Handler(Stream inputEvent, IFunctionContext context)
     {
       string payload = "";
-
 
       JsonSerializer serializer = new JsonSerializer();
 
@@ -37,25 +40,63 @@
 
       if (apigEvent != null)
       {
-        payload = apigEvent.Body;
-        logger.Logf("json Deserialize Body={0}", payload);
+        if (apigEvent.IsBase64Encoded)
+        {
+          byte[] data = System.Convert.FromBase64String(apigEvent.Body);
+          payload = Encoding.UTF8.GetString(data);
+          logger.Logf("Base64 decoded Body={0}", payload);
+        }
+        else
+        {
+          payload = apigEvent.Body;
+          logger.Logf("Unencoded Body={0}", payload);
+        }
+
+        // display path parameters
+        var parameters = apigEvent.PathParameters.getParameters();
+        if (parameters != null)
+        {
+          logger.Log("################# Path Parameter ##############################################");
+          for (int i = 0; i < parameters.Length; i++)
+          {
+            logger.Logf("Path Parameter[{0}]={1}", i, parameters[i]);
+          }
+        }
+        var headers = apigEvent.Headers;
+        if (headers.getAdditionalHeaderKeys() != null)
+        {
+          logger.Log("################# additional Headers #####################################################");
+          foreach (var header in headers.getAdditionalHeaderKeys())
+          {
+            logger.Logf("Header '{0}' = '{1}'", header, headers.getAdditionalHeader(header)); 
+          }
+        }
       }
       else
       {
         payload = "?";
       }
 
+      string body = "";
+
+      if (apigEvent.IsBase64Encoded)
+      {
+        body = System.Convert.ToBase64String(Encoding.UTF8.GetBytes(payload));
+      }
+      else
+      {
+        body = payload;
+      }
+
+      APIGResponseHeaders responseHeaders = new APIGResponseHeaders();
+      responseHeaders.setAdditionalHeader("X-Custom-Header", "CustomValue");
 
       APIGResponse response = new APIGResponse()
       {
         StatusCode = 200,
-        Body = payload,
-        IsBase64Encoded = false,
-        Headers = new System.Collections.Generic.Dictionary<string, string>()
-        {
-          { "Content-Type", "application/json" }
-        }
-        
+        Body = body,
+        IsBase64Encoded = apigEvent.IsBase64Encoded,
+        Headers = responseHeaders
       };
 
       return serializer.Serialize<APIGResponse>(response);

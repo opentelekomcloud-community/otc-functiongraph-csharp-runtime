@@ -4,12 +4,16 @@ on:
   pull_request:
     paths:
       - 'doc/**'
+      - .github/workflows/publishGitHubPages.yml
+      - 'samples-doc/**'
     branches:
       - main
 
   push:
     paths:
       - 'doc/**'
+      - .github/workflows/publishGitHubPages.yml
+      - 'samples-doc/**'
     branches:
       - main
 

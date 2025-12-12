@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTelekomCloud.Serverless
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTelekomCloud.Serverless.Function.Common.JsonSerializer", "src\OpenTelekomCloud.Serverless.Function.Common.JsonSerializer\OpenTelekomCloud.Serverless.Function.Common.JsonSerializer.csproj", "{98047583-27B7-4EB0-B343-F44C46569A4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTelekomCloud.Serverless.Function.Common.TestUtils", "src\OpenTelekomCloud.Serverless.Function.Common.TestUtils\OpenTelekomCloud.Serverless.Function.Common.TestUtils.csproj", "{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,18 @@ Global
 		{98047583-27B7-4EB0-B343-F44C46569A4E}.Release|x64.Build.0 = Release|Any CPU
 		{98047583-27B7-4EB0-B343-F44C46569A4E}.Release|x86.ActiveCfg = Release|Any CPU
 		{98047583-27B7-4EB0-B343-F44C46569A4E}.Release|x86.Build.0 = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|x64.Build.0 = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Debug|x86.Build.0 = Debug|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|x64.Build.0 = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|x86.ActiveCfg = Release|Any CPU
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,5 +214,6 @@ Global
 		{665A292A-B7E3-4037-866F-EE4C3CDBE995} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{8A611667-7880-42BD-9E74-DEA25876194C} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{98047583-27B7-4EB0-B343-F44C46569A4E} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{4B0B79C1-F5CC-4F9B-9C92-E15894C2BDDE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

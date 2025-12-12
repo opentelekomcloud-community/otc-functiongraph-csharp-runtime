@@ -49,6 +49,17 @@
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
 
+
+  <!-- <ItemGroup>
+	    <PackageReference Include="DefaultDocumentation" Version="1.2.2" PrivateAssets="all"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultDocumentationFolder>$(MSBuildThisFileDirectory)..\wiki\api\$(AssemblyName)</DefaultDocumentationFolder>
+    <DefaultDocumentationIncludeUndocumentedItems>true</DefaultDocumentationIncludeUndocumentedItems>
+  </PropertyGroup> -->
+
+
   <PropertyGroup>
     <TargetFrameworks>net6.0;netcoreapp3.1;netcoreapp2.1</TargetFrameworks>
 
@@ -90,9 +101,6 @@
 
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-
     <PackageProjectUrl>
       https://github.com/opentelekomcloud-community/otc-functiongraph-csharp-runtime</PackageProjectUrl>
 
@@ -104,6 +112,12 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 
   </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />

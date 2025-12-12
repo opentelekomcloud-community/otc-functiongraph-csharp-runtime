@@ -20,4 +20,5 @@ sphinx-design
 Sphinx-Substitution-Extensions
 gitpython
 sphinx-autobuild
+myst_parser
 git+https://gitea.eco.tsi-dev.otc-service.com/infra/otc-metadata-rework.git#egg=otc_metadata
