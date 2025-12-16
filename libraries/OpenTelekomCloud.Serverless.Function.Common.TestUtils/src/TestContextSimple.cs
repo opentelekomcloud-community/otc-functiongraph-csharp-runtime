@@ -6,6 +6,7 @@ namespace HC.Serverless.Function.Common
 {
 
   using System;
+  using System.Collections.Generic;
 
   /// <summary>
   /// Test Context implementation to be used in unit tests
@@ -16,49 +17,66 @@ namespace HC.Serverless.Function.Common
   public class TestContextSimple : HC.Serverless.Function.Common.IFunctionContext
 #endif
   {
-    public string FunctionName => "TestFunction";
 
-    public string FunctionVersion => "latest";
+    public Dictionary<string, string> UserData { get; set; } = new Dictionary<string, string>();
+    private DateTime _funcStartTime = DateTime.Now;
+
+    public int TimeoutSeconds { get; set; } = 30;
+    
+    public string FunctionName { get; set; } = "TestFunction";
+
+    public string FunctionVersion { get; set; } = "latest";
 
     public string RequestId => Guid.NewGuid().ToString();
 
-    public string ProjectId => "TestProjectId";
+    public string ProjectId { get; set; } = "TestProjectId";
 
-    public string PackageName => "TestPackage";
+    public string PackageName { get; set; } = "TestPackage";
 
-    public int MemoryLimitInMb => 128;
+    public int MemoryLimitInMb { get; set; } = 128;
 
-    public int CpuNumber => 1;
+    
+    public int CpuNumber { get; set; } = 1;
 
-    public string AccessKey => "FakeAccessKey";
+    public string AccessKey { get; set; } = "FakeAccessKey";
 
-    public string SecretKey => "FakeSecretKey";
+    public string SecretKey { get; set; } = "FakeSecretKey";
 
-    public string SecurityAccessKey => "FakeSecurityAccessKey";
+    public string SecurityAccessKey { get; set; } = "FakeSecurityAccessKey";
 
-    public string SecuritySecretKey => "FakeSecuritySecretKey";
+    public string SecuritySecretKey { get; set; } = "FakeSecuritySecretKey";
+    public string WorkflowID { get; set; } = "";
 
-    public string WorkflowID => "";
+    public string WorkflowRunID { get; set; } = "";
 
-    public string WorkflowRunID => "";
+    public string WorkflowStateID { get; set; } = "";
 
-    public string WorkflowStateID => "";
+    public string Token { get; set; } = "FakeToken";
 
-    public string Token => "FakeToken";
+    public string SecurityToken { get; set; } = "FakeSecurityToken";
+    public int RemainingTimeInMilliSeconds
+    {
+      get
+      {
+        return this.TimeoutSeconds * 1000 - Convert.ToInt32(DateTime.Now.Subtract(this._funcStartTime).TotalMilliseconds);
+      }
+    }
 
-    public string SecurityToken => "FakeSecurityToken";
-
-    public int RemainingTimeInMilliSeconds => 60000;
-
-    public IFunctionLogger Logger => new TestFunctionLogger();
+    public IFunctionLogger Logger
+    {
+      get
+      {
+        return new TestFunctionLogger()
+        {
+          RequestId = this.RequestId,
+          InvokeId = Guid.NewGuid().ToString()
+        };
+      }
+    }
 
     public string GetUserData(string key, string defaultValue = "")
     {
-      if (key == "Key")
-      {
-        return "Value";
-      }
-      return defaultValue;
+      return UserData == null || !UserData.ContainsKey(key) ? defaultValue : UserData[key];
     }
 
   }

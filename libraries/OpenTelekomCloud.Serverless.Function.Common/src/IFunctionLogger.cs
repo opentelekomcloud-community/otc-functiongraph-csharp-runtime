@@ -6,16 +6,15 @@ namespace HC.Serverless.Function.Common
 {
   public interface IFunctionLogger
   {
+    /// <summary>
+    /// Records user input logs 
+    /// </summary>
+    /// <param name="message"></param>
     void Log(string message);
 
     /// <summary>
     /// Records user input logs
-    /// This method will output the content to the standard output in the format of "time-request ID-output content". 
     /// <example>
-    /// For example:
-    /// <code>
-    /// 2017-10-25T09:10:03.328Z 473d369d-101a-445e-a7a8-315cca788f86 test log output
-    /// </code>
     /// Usage of format:
     /// <code>
     /// Logger.Logf("hello CSharp runtime test({0})", version);
