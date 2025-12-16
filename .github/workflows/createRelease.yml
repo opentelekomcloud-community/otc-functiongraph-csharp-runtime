@@ -45,7 +45,7 @@ jobs:
       - name: Build Package
         run: |
           cd libraries
-          dotnet pack --output nupkgs --include-symbols --include-source /p:ContinuousIntegrationBuild=true --configuration Release
+          dotnet pack --output nupkgs --include-source /p:ContinuousIntegrationBuild=true --configuration Release
 
       - name: Publish Package
         run: |

@@ -40,18 +40,9 @@
 
       if (apigEvent != null)
       {
-        if (apigEvent.IsBase64Encoded)
-        {
-          byte[] data = System.Convert.FromBase64String(apigEvent.Body);
-          payload = Encoding.UTF8.GetString(data);
-          logger.Logf("Base64 decoded Body={0}", payload);
-        }
-        else
-        {
-          payload = apigEvent.Body;
-          logger.Logf("Unencoded Body={0}", payload);
-        }
-
+        payload = apigEvent.GetBodyAsString();
+        logger.Logf("APIG Event Payload: {0}", payload);
+        
         // display path parameters
         var parameters = apigEvent.PathParameters.getParameters();
         if (parameters != null)
@@ -89,7 +80,7 @@
       }
 
       APIGResponseHeaders responseHeaders = new APIGResponseHeaders();
-      responseHeaders.setAdditionalHeader("X-Custom-Header", "CustomValue");
+      responseHeaders.addAdditionalHeader("X-Custom-Header", "CustomValue");
 
       APIGResponse response = new APIGResponse()
       {

@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_cts", "event-cts\src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_cts.test", "event-cts\test\event_cts.test.csproj", "{8B1F682B-0895-4554-86DF-DC2EBE25A81B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "event-s3obs-thumbnail", "event-s3obs-thumbnail", "{92074C0D-F408-47DB-80D6-05FA69085896}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "event-obss3-thumbnail", "event-obss3-thumbnail", "{92074C0D-F408-47DB-80D6-05FA69085896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_s3obs_thumbnail", "event-s3obs-thumbnail\src\event_s3obs_thumbnail.csproj", "{6A15D748-C7B0-427D-9F75-51BD72485967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "event_obss3_thumbnail", "event-obss3-thumbnail\src\event_obss3_thumbnail.csproj", "{6A15D748-C7B0-427D-9F75-51BD72485967}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "http_minimalWebAPI", "http_minimalWebAPI", "{20FB5318-612C-402D-BF78-CBDDFD36A65F}"
 EndProject

@@ -12,7 +12,7 @@ the invocation, function, and execution environment.
 Context interface
 -----------------
 
-The interface methods of :github_repo_master:`IFunctionContext </libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionContext.cs>` interface are:
+The interface methods of :github_repo_master:`IFunctionContext </libraries/OpenTelekomCloud.Serverless.Function.Common/src/IFunctionContext.cs>` interface are:
 
 .. list-table:: **Table 1** Context interface methods
    :widths: 10 25
@@ -109,7 +109,7 @@ The interface methods of :github_repo_master:`IFunctionContext </libraries/src/O
 Logging API
 -------------
 
-FunctionGraph provides a :github_repo_master:`IFunctionLogger </libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionLogger.cs>` interface through the context object.
+FunctionGraph provides a :github_repo_master:`IFunctionLogger </libraries/OpenTelekomCloud.Serverless.Function.Common/src/IFunctionLogger.cs>` interface through the context object.
 
 The logger can be accessed by using the **Logger** property of the
 context object.

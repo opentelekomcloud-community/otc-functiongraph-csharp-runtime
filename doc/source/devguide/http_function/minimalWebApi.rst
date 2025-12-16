@@ -134,7 +134,7 @@ Create function
 Upload code
 ^^^^^^^^^^^^^^^^^^^^
 
-Use **Upload** -> **Local ZIP** and upload the generated ZIP file from step 1
+Use **Upload** > **Local ZIP** and upload the generated ZIP file from step 1
    ($(MSBuildProjectName)_net8.0.zip).
 
 

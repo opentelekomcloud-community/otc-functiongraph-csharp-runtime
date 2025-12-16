@@ -24,7 +24,14 @@
 
   <ItemGroup>
     <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.TestUtils"
-      Version="*-*" />  
+      Version="*-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="../resources/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>resources/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
 
 </Project>

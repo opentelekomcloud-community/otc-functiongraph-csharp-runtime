@@ -14,9 +14,9 @@ For details, see
 Kafka example event
 -------------------
 
-.. literalinclude:: /../../samples-doc/event-kafka/resources/kafka_event.json
+.. literalinclude:: /../../samples-doc/event-dms4kafka/resources/dms4kafka_event.json
     :language: json
-    :caption: :github_repo_master:`kafka_event.json <samples-doc/event-kafka/resources/kafka_event.json>`
+    :caption: :github_repo_master:`dms4kafka_event.json <samples-doc/event-dms4kafka/resources/dms4kafka_event.json>`
 
 
 Parameter description

@@ -119,7 +119,7 @@ function, execution environment, and so on.
 The context is of type ``IFunctionContext``
 and is the second argument of the handler function.
 
-* :github_repo_master:`IFunctionContext <libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionContext.cs>`
+* :github_repo_master:`IFunctionContext <libraries/OpenTelekomCloud.Serverless.Function.Common/src/IFunctionContext.cs>`
 
 
 Logging in FunctionGraph
@@ -140,8 +140,8 @@ see :doc:`Using the FunctionGraph context object to retrieve function informatio
 Accessing environment
 ^^^^^^^^^^^^^^^^^^^^^
 
-Environment variables defined in ``OpenTelekomCloud`` ->
-``Configuration`` -> ``Environment Variables`` can be accessed using:
+Environment variables defined in ``OpenTelekomCloud`` >
+``Configuration`` > ``Environment Variables`` can be accessed using:
 
 .. code-block:: java
 

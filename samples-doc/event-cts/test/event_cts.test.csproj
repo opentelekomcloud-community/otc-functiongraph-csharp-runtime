@@ -27,4 +27,11 @@
       Version="*-*" />  
   </ItemGroup>
 
+    <ItemGroup>
+    <Content Include="../resources/**/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>resources/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
 </Project>
