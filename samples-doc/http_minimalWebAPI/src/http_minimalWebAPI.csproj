@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-     <!-- Include README.md in package if exists in parent folder -->
+    <!-- Include README.md in package if exists in parent folder -->
     <Content Include="../README.md" Condition="Exists('../README.md')">
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
@@ -25,7 +25,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>  
+  </ItemGroup>
 
   <!-- ## bootstrap file content -->
   <PropertyGroup>
@@ -33,7 +33,7 @@
 <![CDATA[
 export CREATE_DATE="$([System.DateTime]::Now.ToString("yyyy-MM-ddTHH:mm:ssZ"))"
 # functiongraph requires to listen on port 8000
-export ASPNETCORE_URLS=http://localhost:8000/
+export ASPNETCORE_URLS=http://localhost:8000
 # set content root to $RUNTIME_CODE_ROOT
 export ASPNETCORE_CONTENTROOT=$RUNTIME_CODE_ROOT
 # start the application
@@ -45,9 +45,7 @@ $RUNTIME_CODE_ROOT/$(MSBuildProjectName)
   <!-- ## create zip with bootstrap -->
   <Target Name="ZipOutputPath" Condition="'$(TargetFramework)'!=''" AfterTargets="Publish">
     <!-- create bootstrap file -->
-    <WriteLinesToFile
-      File="$(OutputPath)\publish\bootstrap"
-      Lines="$(GeneratedBootstrapFile)"
+    <WriteLinesToFile File="$(OutputPath)\publish\bootstrap" Lines="$(GeneratedBootstrapFile)"
       Overwrite="true" />
 
     <!-- zip the publish directory -->
@@ -71,6 +69,24 @@ $RUNTIME_CODE_ROOT/$(MSBuildProjectName)
 
   <ItemGroup>
     <PackageFrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.1" />
+    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Expressions" Version="5.0.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\*" />
   </ItemGroup>
 
 </Project>
