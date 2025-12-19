@@ -1,5 +1,6 @@
 namespace http_minimalWebAPI;
 
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +24,6 @@ using Serilog.Templates;
 public class Program
 {
 
-
   public static void Main(string[] args)
   {
 
@@ -33,7 +33,7 @@ public class Program
     // timezone conversion functions for Serilog.Expressions
     var dateTimeFunctions = new StaticMemberNameResolver(typeof(DateTimeFunctions));
 
-    // Configure Serilog
+    // Configure Serilog to log requestId and timestamp in UTC
     builder.Host.UseSerilog((context, loggerConfig) =>
         loggerConfig
         .WriteTo.Async(a => a.Console(
@@ -46,14 +46,20 @@ public class Program
         .Enrich.WithThreadId()
     );
 
-
-    // add swagger
+    // Add controller services
     builder.Services.AddControllers();
 
+    // Add Swagger services
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
       options.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal Web API", Version = "v1" });
+
+      var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+      var xmlPath= Path.Combine(AppContext.BaseDirectory, xmlFilename);
+      // Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
+
+      options.IncludeXmlComments(xmlPath);
 
     });
 
@@ -66,11 +72,18 @@ public class Program
     app.UseStaticFiles();
 
     // Enable Swagger middleware
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    string useSwaggerUI = (Environment.GetEnvironmentVariable("USE_SWAGGER_UI") ?? "false").ToLower();
+    if (useSwaggerUI.Equals("true"))
+    {
+      app.UseSwagger();
+      app.UseSwaggerUI();
+    }
 
-    // Map API endpoints
+    // Map API endpoints (e.g in case of not using controllers)
     APIEndpoints.Map(app);
+
+    // Map controller routes
+    app.MapControllers();
 
     // Start the application
     app.Run();
@@ -106,4 +119,5 @@ public class Program
       });
     }
   }
+
 }

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Primitives;
 using Serilog.Context;
 using Serilog.Events;
 using Serilog.Expressions;
+using System.Linq;
+using System;
 
 /// <summary>
 /// Middleware to log the x-cff-request-id header for each incoming HTTP request.

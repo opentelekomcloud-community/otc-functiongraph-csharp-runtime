@@ -5,15 +5,20 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   depends_on = [opentelekomcloud_obs_bucket_object.code_object]
   name       = format("%s_%s", var.prefix, var.function_name)
   app        = "default"
-  
+
   handler = var.function_handler_name
 
   description      = "Minimal WebAPI deployed with terraform."
-  memory_size      = 128
+  memory_size      = 256
   timeout          = 30
   max_instance_num = 10
 
   runtime = var.function_runtime
+
+  user_data = jsonencode({
+    "USE_SWAGGER_UI" = var.use_swagger_ui
+  })
+
 
   # -------------------------------------------------------------- #
   # Use code uploaded to OBS as ZIP file 

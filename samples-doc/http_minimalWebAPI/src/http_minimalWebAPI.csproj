@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -33,9 +34,11 @@
 <![CDATA[
 export CREATE_DATE="$([System.DateTime]::Now.ToString("yyyy-MM-ddTHH:mm:ssZ"))"
 # functiongraph requires to listen on port 8000
-export ASPNETCORE_URLS=http://localhost:8000
+export ASPNETCORE_HTTP_PORTS=8000
 # set content root to $RUNTIME_CODE_ROOT
 export ASPNETCORE_CONTENTROOT=$RUNTIME_CODE_ROOT
+# set generated xml doc file to be readable
+chmod +r $(AssemblyName).xml
 # start the application
 $RUNTIME_CODE_ROOT/$(MSBuildProjectName)
 ]]>
@@ -58,9 +61,10 @@ $RUNTIME_CODE_ROOT/$(MSBuildProjectName)
   <!-- ## publish settings for Release build -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <!-- dotnet publish -c Release -->
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <!-- <PublishReadyToRun>true</PublishReadyToRun> -->
     <PublishSingleFile>true</PublishSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
+    <!-- DO NOT USE <PublishTrimmed> Controller will not work properly -->
+    <!-- <PublishTrimmed>true</PublishTrimmed> -->
     <SelfContained>true</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
@@ -82,10 +86,15 @@ $RUNTIME_CODE_ROOT/$(MSBuildProjectName)
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-
   </ItemGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
+    <!-- favicon for swagger -->
     <None Include="wwwroot\*" />
   </ItemGroup>
 
