@@ -38,3 +38,8 @@ variable "API_GATEWAY_INSTANCE_ID" {
   type = string
   # default = "your_api_gateway_instance_id"
 }
+
+variable "use_swagger_ui" {
+  type    = string
+  default = "true"
+}

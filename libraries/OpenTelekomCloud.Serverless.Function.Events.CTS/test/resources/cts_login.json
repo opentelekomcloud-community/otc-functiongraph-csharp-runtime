@@ -1,0 +1,30 @@
+{
+  "cts": {
+    "trace_id": "b394d958-d990-11f0-91ec-f9a8f9ca8a51",
+    "code": 302,
+    "trace_name": "login",
+    "resource_type": "user",
+    "trace_rating": "normal",
+    "message": "{\"login\":{\"mode\":\"password\",\"user_type\":\"iam user\",\"login_protect\":{\"status\":\"off\"}}}",
+    "source_ip": "62.156.151.4",
+    "domain_id": "e51dfca1c18747919f6c16af2721f35d",
+    "trace_type": "ConsoleAction",
+    "service_type": "IAM",
+    "event_type": "global",
+    "project_id": "ae050143781c4ab6a130522e5f2d30c1",
+    "read_only": false,
+    "resource_id": "e14aed517380466cac2d109877a5ac6b",
+    "tracker_name": "system",
+    "time": "1765788999507",
+    "resource_name": "USERNAME",
+    "user": {
+      "domain": {
+        "name": "USERDOMAINNAME",
+        "id": "e51dfca1c18747919f6c16af2721f35d"
+      },
+      "name": "USERNAME",
+      "id": "USERID"
+    },
+    "record_time": "1765788999507"
+  }
+}

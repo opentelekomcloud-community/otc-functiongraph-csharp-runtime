@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\buildtools\common.props" />
+
+  
+  <ItemGroup>
+    <!-- <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" /> -->
+     <ProjectReference Include="..\..\OpenTelekomCloud.Serverless.Function.Common\src\OpenTelekomCloud.Serverless.Function.Common.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+
+    <Description>OpenTelekomCloud FunctionGraph .NET Core support - Common Test Utils.</Description>
+    <AssemblyTitle>OpenTelekomCloud.Serverless.Function.Common.TestUtils</AssemblyTitle>
+
+    <AssemblyName>OpenTelekomCloud.Serverless.Function.Common.TestUtils</AssemblyName>
+
+    <Version>1.0.0.0</Version>
+
+    <RootNamespace>OpenTelekomCloud.Serverless.Function.Common</RootNamespace>
+    <PackageId>OpenTelekomCloud.Serverless.Function.Common.TestUtils</PackageId>
+    <PackageTags>OpenTelekomCloud;OTC;FunctionGraph</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="$(Newtonsoft_Json_Version)" />
+  </ItemGroup>
+
+</Project>

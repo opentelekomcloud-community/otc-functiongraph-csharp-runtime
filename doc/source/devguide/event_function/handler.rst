@@ -27,22 +27,13 @@ C# function syntax:
 - **Function name**: user-defined function name. The name must
   be consistent with that you define when creating a function.
 
-- **User-defined parameter**: parameter defined for the function. The type
-   must be defined as **Stream**.
+- **User-defined parameter**: parameter defined for the function.
+  The type must be defined as **Stream**.
 
 - **context**: runtime information provided for executing the function.
 
-    .. note::
-
-      - For target frameworks prior to .NET 6.0,
-        Package **OpenTelekomCloud.Serverless.Function.Common.legacy** has to be referenced and
-        imported with **using HC.Serverless.Function.Common**
-      - for target frameworks .NET 6.0 and later versions,
-        the **OpenTelekomCloud.Serverless.Function.Common** package as to be referenced and
-        imported with **using OpenTelekomCloud.Serverless.Function.Common**
-
-
-  For details about the IFunctionContext object, see the :doc:`Context <./context>` description.
+  For details about the IFunctionContext object, see the
+  :doc:`Context <./context>` description.
 
 When creating a C# function, you need to define a method as the handler
 of the function.
@@ -86,6 +77,14 @@ Example:
 
   This method is needed for compilation only and is not invoked by FunctionGraph.
 
+.. note::
+
+  For C# versions
+
+  - prior to .NET 6.0, classes from ``HC.Serverless.Function.Common`` must be used
+
+  - .NET 6.0 and above, classes from ``OpenTelekomCloud.Serverless.Function.Common`` must be used.
+
 Function Handler
 ----------------
 
@@ -120,7 +119,7 @@ function, execution environment, and so on.
 The context is of type ``IFunctionContext``
 and is the second argument of the handler function.
 
-* :github_repo_master:`IFunctionContext <libraries/src/OpenTelekomCloud.Serverless.Function.Common/IFunctionContext.cs>`
+* :github_repo_master:`IFunctionContext <libraries/OpenTelekomCloud.Serverless.Function.Common/src/IFunctionContext.cs>`
 
 
 Logging in FunctionGraph
@@ -141,8 +140,8 @@ see :doc:`Using the FunctionGraph context object to retrieve function informatio
 Accessing environment
 ^^^^^^^^^^^^^^^^^^^^^
 
-Environment variables defined in ``OpenTelekomCloud`` ->
-``Configuration`` -> ``Environment Variables`` can be accessed using:
+Environment variables defined in ``OpenTelekomCloud`` >
+``Configuration`` > ``Environment Variables`` can be accessed using:
 
 .. code-block:: java
 

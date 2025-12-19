@@ -1,0 +1,1 @@
+obss3Thumbnail::src.Program::Handler

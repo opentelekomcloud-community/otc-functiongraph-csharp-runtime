@@ -164,12 +164,8 @@ C# project file
         </Content>
       </ItemGroup>
 
-      <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+      <ItemGroup>
         <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
-      </ItemGroup>
-
-      <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1' or '$(TargetFramework)'=='netcoreapp2.1'">
-        <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.legacy" Version="*-*" />
       </ItemGroup>
 
       <!-- Create zip package after build to be uploaded to FunctionGraph -->
@@ -214,9 +210,6 @@ the ZIP file must contain the following files:
 * **AssemblyName**.runtimeconfig.json,
 * **AssemblyName**.pdb,
 * OpenTelekomCloud.Serverless.Function.Common.dll
-  (for C# version .NET 6.0 and above) or
-* OpenTelekomCloud.Serverless.Function.Common.legacy.dll
-  (for C# version prior to .NET 6.0).
 
 .. note::
    **AssemblyName** is the name defined in the project file, as `<AssemblyName>`,
@@ -245,13 +238,13 @@ Example directory of a C# project package
       .. code-block:: text
         :caption: Directory structure for prior to .NET 6.0
 
-          simple_event_timer_netcoreapp3.1.zip                                          # Example project package
+          simple_event_timer_netcoreapp3.1.zip                       # Example project package
           ├─ simple.deps.json                                        # File generated after project compilation
           ├─ simple.dll                                              # File generated after project compilation
           ├─ simple.pdb                                              # File generated after project compilation
           ├─ simple.runtimeconfig.json                               # File generated after project compilation
           ├─ handler.txt                                             # Help file, which can be directly used
-          └─ HC.Serverless.Function.Common.legacy.dll  # .dll file provided by this runtime package
+          └─ HC.Serverless.Function.Common.legacy.dll                # .dll file provided by this runtime package
 
 
 This deployment zip will be created automatically
@@ -292,13 +285,13 @@ Create function
 Upload code
 ^^^^^^^^^^^^^^^^^^^^
 
-Use **Upload** -> **Local ZIP** and upload *simple_net6.0.zip*
+Use **Upload** > **Local ZIP** and upload *simple_net6.0.zip*
 from previous step.
 
 Configure function
 ^^^^^^^^^^^^^^^^^^^^
 
-* In **Configuration** -> **Basic Settings** -> **Handler**:
+* In **Configuration** > **Basic Settings** > **Handler**:
   set value to name as defined in **handler.txt**
 
 Test the function

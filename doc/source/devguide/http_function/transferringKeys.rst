@@ -12,7 +12,7 @@ perform the following steps:
 
 1. Log in to the :fg_console:`FunctionGraph console<>` console and go
    to the details page of the HTTP function to be configured
-2. Choose **Configuration** -> **Advanced Settings** and enable
+2. Choose **Configuration** > **Advanced Settings** and enable
    **Include Keys**.
 
     .. figure:: console_advanced_settings.png

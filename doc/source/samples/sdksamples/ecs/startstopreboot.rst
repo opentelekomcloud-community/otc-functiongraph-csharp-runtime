@@ -95,16 +95,16 @@ Create function
 Upload code
 *******************
 
-Use **Upload** -> **Local ZIP** and upload *start_ecs_net6.0.zip*
+Use **Upload** > **Local ZIP** and upload *start_ecs_net6.0.zip*
 from previous step.
 
 Configure function
 *******************
 
-* In **Configuration** -> **Basic Settings** -> **Handler**:
+* In **Configuration** > **Basic Settings** > **Handler**:
   set value to name as defined in **handler.txt**
 
-* In **Configuration** -> **Environment Variables** add following variables:
+* In **Configuration** > **Environment Variables** add following variables:
 
     .. list-table:: Environment variables
       :widths: 20 20 25

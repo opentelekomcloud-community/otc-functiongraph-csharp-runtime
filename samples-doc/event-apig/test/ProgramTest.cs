@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using OpenTelekomCloud.Serverless.Function.Common;
 using OpenTelekomCloud.Serverless.Function.Events.APIG;
-using System.Security.Cryptography;
 
 public class UnitTest1
 {
@@ -23,10 +22,7 @@ public class UnitTest1
 
     string jsonInput = "";
 
-    string folderProjectLevel = Utils.GetPathProjectFolder();
-
-    // Read sample APIG event JSON from file
-    string filePath = Path.Combine(folderProjectLevel, "resources/apig_event.json");
+    string filePath = "resources/apig_event.json";
 
     using (StreamReader r = new StreamReader(filePath))
     {
@@ -52,6 +48,7 @@ public class UnitTest1
       Console.WriteLine("Function output: " + apigResponse.Body);
 
     }
+
   }
 
   [Fact]
@@ -64,10 +61,8 @@ public class UnitTest1
 
     string jsonInput = "";
 
-    string folderProjectLevel = Utils.GetPathProjectFolder();
-
     // Read sample APIG event JSON from file
-    string filePath = Path.Combine(folderProjectLevel, "resources/apig_base64_event.json");
+    string filePath = "resources/apig_base64_event.json";
 
     using (StreamReader r = new StreamReader(filePath))
     {
@@ -108,10 +103,8 @@ public class UnitTest1
 
     string jsonInput = "";
 
-    string folderProjectLevel = Utils.GetPathProjectFolder();
-
     // Read sample APIG event JSON from file
-    string filePath = Path.Combine(folderProjectLevel, "resources/apig_event_with_params.json");
+    string filePath = "resources/apig_event_with_params.json";
 
     using (StreamReader r = new StreamReader(filePath))
     {

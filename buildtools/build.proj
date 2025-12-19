@@ -27,7 +27,7 @@
     DependsOnTargets="build-project-packages"></Target>
 
   <ItemGroup>
-    <LibraryName Include="../libraries/src/**/*.csproj" />
+    <LibraryName Include="../libraries/**/*.csproj" Exclude="../libraries/**/*.test.csproj"/>
   </ItemGroup>
 
   <Target Name="init">
@@ -41,8 +41,8 @@
       WorkingDirectory="../libraries" />
       
     <Exec      
-      Command="dotnet pack --no-build -c $(Configuration) -v d -o $(MSBuildThisFileDirectory)../Deployment/nuget-packages"
-      WorkingDirectory="../libraries/src/%(LibraryName.FileName)" />
+      Command="dotnet pack --no-build --configuration $(Configuration) --include-source --verbosity detailed --output $(MSBuildThisFileDirectory)../Deployment/nuget-packages"
+      WorkingDirectory="../libraries/%(LibraryName.FileName)/src" />
   </Target>
 
   <Target Name="publish-nuget-local" DependsOnTargets="build-nuget-packages">

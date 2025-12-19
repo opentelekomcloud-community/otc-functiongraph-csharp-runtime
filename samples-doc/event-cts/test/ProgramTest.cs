@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using OpenTelekomCloud.Serverless.Function.Common;
 using OpenTelekomCloud.Serverless.Function.Events.CTS;
-using System.Security.Cryptography;
 
 public class UnitTest1
 {
@@ -23,10 +22,8 @@ public class UnitTest1
 
     string jsonInput = "";
 
-    string folderProjectLevel = Utils.GetPathProjectFolder();
-
     // Read sample CTS event JSON from file
-    string filePath = Path.Combine(folderProjectLevel, "resources/cts_event.json");
+    string filePath = "resources/cts_event.json";
 
     using (StreamReader r = new StreamReader(filePath))
     {

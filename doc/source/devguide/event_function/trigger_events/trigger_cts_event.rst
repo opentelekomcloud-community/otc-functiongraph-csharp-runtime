@@ -84,6 +84,9 @@ Parameter description
      - String
      - Status of the event
 
+For full description of all parameters see
+`CTS Event Reference <https://docs.otc.t-systems.com/cloud-trace-service/umn/trace_references/trace_structure.html#id1>`_.
+
 Example
 -------
 
