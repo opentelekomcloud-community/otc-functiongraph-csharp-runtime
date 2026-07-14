@@ -1,23 +1,26 @@
-Event Function
-==========================
+FunctionGraph Event Functions
+=============================
 
 .. toctree::
+   :maxdepth: 1
    :hidden:
 
-   Handler <handler>
-   Context <context>
-   Sample Project <sampleProject>
+   Create from scratch <scratch/_index>
+   Container Image <container/_index>
    JSON Handling <json>
-   Trigger Events <trigger_events/_index>
+   Trigger events <trigger_events/_index>
 
 Event functions can be configured with event triggers and integrate
-a variety of OpenTelekomCloud products (such as object storage service OBS,
-distributed messaging service RabbitMQ version, cloud log service LTS, etc.).
+a variety of products (such as object storage service OBS,
+distributed messaging service DMS, cloud log service LTS, etc.).
 
-FunctionGraph C# libraries
---------------------------------
-The FunctionGraph C# runtime SDK provides the following libraries
-to help you develop C# event functions.
+Types of Event Functions
+------------------------------------
+
+You can build FunctionGraph event functions in C# in the following ways:
+
+* :ref:`From Scratch  <devguide_event_function_scratch_index>`
+* :ref:`Using Container Image  <devguide_event_function_container_index>`
 
 Core libraries
 ^^^^^^^^^^^^^^^^

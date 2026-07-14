@@ -36,7 +36,7 @@ extensions = [
 ]
 
 # openstackdocstheme options
-otcdocs_repo_name = 'opentelekomcloud-community/otc-functiongraph-go-runtime'
+otcdocs_repo_name = 'opentelekomcloud-community/otc-functiongraph-csharp-runtime'
 otcdocs_git_type = 'github'
 
 # Those variables are required for edit/bug links
@@ -51,7 +51,7 @@ otcdocs_analytics_app = 'otc-functiongraph-csharp-runtime'
 # Those variables are needed for indexing into OpenSearch
 otcdocs_doc_environment = 'public'
 otcdocs_doc_link = '/'
-otcdocs_doc_title = 'Developer Guide: FunctionGraph csharp Runtime'
+otcdocs_doc_title = 'Developer Guide: FunctionGraph C# Runtime'
 otcdocs_doc_type = 'dev'
 otcdocs_service_category = 'example'
 otcdocs_service_title = 'otc-functiongraph-csharp-runtime'
@@ -146,7 +146,7 @@ add_function_parentheses = True
 add_module_names = True
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'native'
+pygments_style = 'default'
 
 autodoc_member_order = "bysource"
 

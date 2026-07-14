@@ -1,0 +1,73 @@
+#https://mcr.microsoft.com/en-us/artifact/mar/dotnet/sdk
+FROM mcr.microsoft.com/dotnet/sdk:9.0@sha256:24fe7c00719afc72e2b67cace264dea2ee39ae45f5b553bd59493fe3ddfc920f AS build
+
+WORKDIR /source
+
+ARG BUILD_TIMESTAMP=unknown
+ENV BUILD_TIMESTAMP=${BUILD_TIMESTAMP}
+
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+
+# Set timzone to UTC
+ENV TZ=Etc/UTC
+
+COPY --link ./src/*.csproj ./
+
+# Restore with secrets and cache mounts (not stored in image)
+RUN --mount=type=secret,id=github_nuget_username \
+    --mount=type=secret,id=github_nuget_password \
+    --mount=type=cache,target=/root/.nuget/packages \
+    dotnet nuget add source \
+      https://nuget.pkg.github.com/opentelekomcloud-community/index.json \
+      --name="github" \
+      --username $(cat /run/secrets/github_nuget_username) \
+      --valid-authentication-types basic \
+      --store-password-in-clear-text \
+      --password $(cat /run/secrets/github_nuget_password) && \
+    dotnet restore -r linux-musl-x64
+
+COPY --link ./src ./
+# Build and publish a release — use linux-musl-x64 to match alpine runtime image
+RUN dotnet publish -c Release -o /app -r linux-musl-x64 --self-contained
+
+#https://mcr.microsoft.com/en-us/artifact/mar/dotnet/runtime-deps
+FROM mcr.microsoft.com/dotnet/runtime-deps:9.0-alpine@sha256:0f3eddbb6f96aefc608e2bb8bd3aa30cc76475668de0c21277065e339ca28a31
+
+ARG BUILD_TIMESTAMP
+ENV BUILD_TIMESTAMP=${BUILD_TIMESTAMP}
+
+ENV GROUP_ID=1003
+ENV GROUP_NAME=paas_user
+
+ENV USER_ID=1003
+ENV USER_NAME=paas_user
+
+# alpine does not have tzdata installed by default, so we need to install it
+RUN apk add --no-cache tzdata  && \
+    # add group with specific GID
+    addgroup -g ${GROUP_ID} ${GROUP_NAME} && \
+    # add user with specific UID and GID
+    adduser -u ${USER_ID} -G ${GROUP_NAME} -D ${USER_NAME}    
+
+
+# Set timzone to UTC
+ENV TZ=Etc/UTC
+
+# functiongraph requires to listen on port 8000
+ENV ASPNETCORE_HTTP_PORTS=8000
+
+WORKDIR /app
+
+#COPY --from=build /app .
+# Only copy the binary, skip .pdb, .xml and other artifacts
+COPY --from=build /app/container_event_timer .
+
+RUN chown -R $USER_ID:$GROUP_ID /app && \
+    chmod +x /app/container_event_timer
+
+USER $USER_NAME
+
+EXPOSE 8000
+
+ENTRYPOINT ["/app/container_event_timer"]

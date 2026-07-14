@@ -1,8 +1,7 @@
+.. _context:
+
 Using the FunctionGraph context interface to retrieve C# function information
 =============================================================================
-
-.. toctree::
-    :hidden:
 
 When FunctionGraph runs your function, it passes a context object to the
 handler.

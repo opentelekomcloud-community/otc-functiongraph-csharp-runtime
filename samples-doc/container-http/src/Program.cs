@@ -1,24 +1,17 @@
 namespace http_minimalWebAPI;
 
 using System;
-using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Serilog.Context;
 using Serilog.Core;
 using Serilog.Expressions;
 using Serilog.Extensions.Hosting;
-using Serilog.Formatting.Compact;
-using Serilog.Formatting.Json;
 using Serilog.Templates;
 
 public class Program
@@ -26,9 +19,17 @@ public class Program
 
   public static void Main(string[] args)
   {
+    var BUILD_TIMESTAMP = Environment.GetEnvironmentVariable("BUILD_TIMESTAMP") ?? "unknown";
 
+    Console.WriteLine($"####################### starting version: {BUILD_TIMESTAMP}");
     // Create the WebApplication builder
-    var builder = WebApplication.CreateBuilder();
+    var contentRoot = Environment.GetEnvironmentVariable("ASPNETCORE_CONTENTROOT") ?? AppContext.BaseDirectory;
+    var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+    {
+      Args = args,
+      ContentRootPath = contentRoot,
+      WebRootPath = Path.Combine(contentRoot, "wwwroot")
+    });
 
     // timezone conversion functions for Serilog.Expressions
     var dateTimeFunctions = new StaticMemberNameResolver(typeof(DateTimeFunctions));
@@ -53,12 +54,12 @@ public class Program
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
-      options.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal Web API", Version = "v1" });
+      options.SwaggerDoc("v1", new OpenApiInfo { Title = "FunctionGraph HTTP Function in Container", Version = "v1" });
 
       var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
       var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
       var xmlPath= Path.Combine(baseDirectory, xmlFilename);
-      //Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
+      // Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
 
       options.IncludeXmlComments(xmlPath);
 
@@ -76,8 +77,20 @@ public class Program
     string useSwaggerUI = (Environment.GetEnvironmentVariable("USE_SWAGGER_UI") ?? "false").ToLower();
     if (useSwaggerUI.Equals("true"))
     {
-      app.UseSwagger();
-      app.UseSwaggerUI();
+      
+      app.UseSwagger(options =>
+      {
+        options.RouteTemplate = "swagger/{documentName}/swagger.json";
+      });
+
+      // Some gateways do not reliably handle /swagger -> /swagger/index.html redirects.
+      app.UseRewriter(new RewriteOptions().AddRewrite("^swagger$", "swagger/index.html", true));
+
+      app.UseSwaggerUI(options =>
+      {
+        options.RoutePrefix = "swagger";
+        options.SwaggerEndpoint("v1/swagger.json", "FunctionGraph HTTP Function in Container v1");
+      });
     }
 
     // Map API endpoints (e.g in case of not using controllers)
@@ -105,6 +118,17 @@ public class Program
         return $"Hello, {name}!";
       });
 
+      app.MapGet("/version", () =>
+      {
+        var BUILD_TIMESTAMP = Environment.GetEnvironmentVariable("BUILD_TIMESTAMP") ?? "unknown";
+        var ASPNETCORE_CONTENTROOT = Environment.GetEnvironmentVariable("ASPNETCORE_CONTENTROOT") ?? "unknown";
+
+        Log.Information("Build Timestamp: {BuildTimestamp}", BUILD_TIMESTAMP);
+        Log.Information("Content Root: {ContentRoot}", ASPNETCORE_CONTENTROOT);
+        return $"BUILD_TIMESTAMP:  {BUILD_TIMESTAMP}, ASPNETCORE_CONTENTROOT: {ASPNETCORE_CONTENTROOT}";
+      });
+
+
 
       // Query parameter example: /hello?name=John
       app.MapGet("/hello", (string? name) =>
@@ -118,6 +142,15 @@ public class Program
 
         await context.Response.WriteAsync($"Request ID is: {requestId}");
       });
+
+      app.MapPost("/init", async context =>
+      {
+        string? requestId = context.Request.Headers["x-cff-request-id"];
+
+        Log.Information($"Init called with Request ID: {requestId}");
+        await context.Response.WriteAsync($"Request ID is: {requestId}");
+      });
+
     }
   }
 

@@ -1,4 +1,4 @@
-namespace http_minimalWebAPI;
+namespace container_event_timer;
 
 using System;
 using System.Linq.Expressions;
@@ -6,12 +6,12 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using OpenTelekomCloud.Serverless.Function.Common;
+using OpenTelekomCloud.Serverless.Function.Events.Timer;
 using Serilog;
 using Serilog.Context;
 using Serilog.Core;
@@ -29,6 +29,7 @@ public class Program
 
     // Create the WebApplication builder
     var builder = WebApplication.CreateBuilder();
+    // builder.WebHost.UseUrls("http://*:8000");
 
     // timezone conversion functions for Serilog.Expressions
     var dateTimeFunctions = new StaticMemberNameResolver(typeof(DateTimeFunctions));
@@ -46,45 +47,15 @@ public class Program
         .Enrich.WithThreadId()
     );
 
-    // Add controller services
-    builder.Services.AddControllers();
-
-    // Add Swagger services
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(options =>
-    {
-      options.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal Web API", Version = "v1" });
-
-      var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-      var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-      var xmlPath= Path.Combine(baseDirectory, xmlFilename);
-      //Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
-
-      options.IncludeXmlComments(xmlPath);
-
-    });
-
     var app = builder.Build();
 
     // Use the custom logging middleware
     app.UseMiddleware<LoggingMiddleware>();
 
-    // Enable serving static files (including favicon.ico from wwwroot)
-    app.UseStaticFiles();
 
-    // Enable Swagger middleware
-    string useSwaggerUI = (Environment.GetEnvironmentVariable("USE_SWAGGER_UI") ?? "false").ToLower();
-    if (useSwaggerUI.Equals("true"))
-    {
-      app.UseSwagger();
-      app.UseSwaggerUI();
-    }
-
-    // Map API endpoints (e.g in case of not using controllers)
+    // Map API endpoints
     APIEndpoints.Map(app);
 
-    // Map controller routes
-    app.MapControllers();
 
     // Start the application
     app.Run();
@@ -94,28 +65,42 @@ public class Program
   {
     public static void Map(WebApplication app)
     {
-      // Minimal API endpoint definitions
-      app.MapGet("/", () => "Hello World!");
 
-
-      // Route parameter example: /greeting/John
-      app.MapGet("/greeting/{name}", (string name) =>
+      app.MapPost("/invoke", async ([FromHeader(Name = "x-cff-request-id")] string? requestId, HttpContext context) =>
       {
-        Log.Information("Greeting {Name}", name);
-        return $"Hello, {name}!";
+        try
+        {
+          // Read the request body into a MemoryStream (seekable)
+          var ms = new MemoryStream();
+          await context.Request.Body.CopyToAsync(ms);
+          ms.Position = 0;
+
+          var serializer = new JsonSerializer();
+          var timerEvent = serializer.Deserialize<TimerEvent>(ms);
+
+          Log.Information("Timer Event {Event}", timerEvent?.ToString() ?? "null");
+          // Log.Information("Project ID: {ProjectId}", context.Request.Headers["x-cff-project-id"].ToString());
+          var BUILD_TIMESTAMP = Environment.GetEnvironmentVariable("BUILD_TIMESTAMP") ?? "unknown";
+          Log.Information("Build Timestamp: {BuildTimestamp}", BUILD_TIMESTAMP);
+          
+          // Single response write
+          var response = $"Processed event: {timerEvent?.ToString() ?? "unknown"}, RequestId: {requestId}";
+          await context.Response.WriteAsync(response);
+        }
+        catch (Exception ex)
+        {
+          Log.Error(ex, "Error deserializing event");
+          context.Response.StatusCode = 400;
+          await context.Response.WriteAsync($"Error: {ex.Message}");
+        }
       });
 
 
-      // Query parameter example: /hello?name=John
-      app.MapGet("/hello", (string? name) =>
-      {
-        return $"Hello, {name ?? "Guest"}!";
-      });
-
-      app.MapGet("/test", async context =>
+      app.MapPost("/init", async context =>
       {
         string? requestId = context.Request.Headers["x-cff-request-id"];
 
+        Log.Information($"Init called with Request ID: {requestId}");
         await context.Response.WriteAsync($"Request ID is: {requestId}");
       });
     }

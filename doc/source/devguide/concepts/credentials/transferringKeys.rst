@@ -7,7 +7,6 @@ The key information of HTTP functions can be transferred only
 through request headers.
 
 To obtain the AK, SK, and token of an HTTP function as shown in Table 1,
-
 perform the following steps:
 
 1. Log in to the :fg_console:`FunctionGraph console<>` console and go
@@ -45,7 +44,7 @@ perform the following steps:
 
 On details how to use the Security-Access-Key, Security-Secret-Key,
 and Security-Token to call other OTC services using API request,
-see :github_csharp_sign_sdk:`Developer guide for request signing for C+<>`
+see :github_csharp_sign_sdk:`Developer guide for request signing for C#<>`
 
 
 .. hint::

@@ -55,7 +55,7 @@ resource "opentelekomcloud_apigw_api_v2" "api1" {
   func_graph {
     function_urn    = opentelekomcloud_fgs_function_v2.MyFunction.urn
     version         = "latest"
-    timeout         = 5000
+    timeout         = 20000
     invocation_type = "sync"
     network_type    = "NON-VPC"
   }
