@@ -226,9 +226,9 @@ autoclass_content = "both"
 sphinx_tabs_valid_builders = ['linkcheck']
 
 
-rst_prolog = f"""
-.. |github_repo| replace:: "https://github.com/opentelekomcloud-community/otc-functiongraph-csharp-runtime.git"
-"""
+# rst_prolog = f"""
+# .. |github_repo| replace:: "https://github.com/opentelekomcloud-community/otc-functiongraph-csharp-runtime.git"
+# """
 # version = "1.0.0"
 # release = "1.0.0"
 
@@ -244,6 +244,9 @@ extlinks= {
     "fg_console": ('https://console.otc.t-systems.com/functiongraph/%s', "%s"),
     "otc_developer": ('https://docs.otc.t-systems.com/developer/%s', "%s"),
     "github_csharp_sign_sdk": ('https://github.com/opentelekomcloud-community/otc-api-sign-sdk-csharp/%s', "%s"),
+    "docs_otc": ("https://docs.otc.t-systems.com/%s", "%s"),
+    "github_otc": ("https://github.com/opentelekomcloud/%s", "%s"),
+    "github_otc_community": ("https://github.com/opentelekomcloud-community/%s", "%s"),
 }
 
 role_name = 'github_repo_master'

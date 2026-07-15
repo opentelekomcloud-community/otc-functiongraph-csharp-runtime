@@ -77,14 +77,7 @@ terraform {
 
     opentelekomcloud = {
       source  = "opentelekomcloud/opentelekomcloud"
-      version = ">= 1.36.51"
-    }
-
-    # terracurl provider to perform HTTP requests
-    # see https://registry.terraform.io/providers/devops-rob/terracurl/latest
-    terracurl = {
-      source  = "devops-rob/terracurl"
-      version = "2.1.0"
+      version = ">= 1.37.1"
     }
 
   }

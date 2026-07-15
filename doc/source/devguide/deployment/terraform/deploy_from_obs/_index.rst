@@ -1,12 +1,25 @@
-Deploying a HTTP Function using Terraform
-=========================================
+.. _ref_deploy_from_obs:
 
-This section describes on how to deploy an HTTP Function using Terraform.
+Deploy FunctionGraph Event Function from OBS
+=============================================
 
-Prerequisite
-------------
+.. toctree::
+   :maxdepth: 2
+   :hidden:
 
-* Terraform configured according to :ref:`ref_terraform_setup`
+This sample demonstrates how to deploy a simple event function to 
+FunctionGraph with **code from OBS** using terraform.
+
+This approach is used, if your unpacked FunctionGraph deployment package is **less than 40MB**.
+
+Source code of this sample is available on :github_repo_master:`GitHub <samples-doc/deploy-from-obs>`.
+
+Prerequisites
+-----------------
+
+- running on Linux / Windows Subsystem for Linux (WSL)
+- make installed
+- Terraform installed and configured, see :ref:`Terraform Setup<ref_terraform_setup>`.
 
 Example
 -------
@@ -19,21 +32,15 @@ This example deploys a minimal C# HTTP Function and demonstrates how to:
 - upload the Function code as zip file to an OBS bucket (and update on changes),
   see: :github_repo_master:`code_from_obs_bucket.tf </samples-doc/http_minimalWebAPI/terraform/code_from_obs_bucket.tf>`
 
+  .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/code_from_obs_bucket.tf
+     :language: terraform
+
+
 - create the Function using the code from the OBS bucket,
   see: :github_repo_master:`function.tf </samples-doc/http_minimalWebAPI/terraform/function.tf>`
 
-  .. code-block:: terraform
-
-      resource "opentelekomcloud_functiongraph_function_v2" "MyEventFunction" {
-        ...
-         code_type = "obs"
-         code_url = format("https://%s/%s/%s",
-              opentelekomcloud_obs_bucket.codebucket.bucket_domain_name,
-              "code",
-              basename(var.zip_file_local)
-         )
-        ...
-      }
+  .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/function.tf
+     :language: terraform
 
 - configure the API Trigger for the Function using
 
@@ -41,14 +48,21 @@ This example deploys a minimal C# HTTP Function and demonstrates how to:
   - API and
   - publishment to an environment,
 
-  see: :github_repo_master:`api_trigger.tf </samples-doc/http_minimalWebAPI/terraform/api_trigger.tf>`
+  .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/api_trigger.tf
+     :language: terraform
 
 - configure logging for the Function using LTS Log Group and Log Stream,
-  see :github_repo_master:`function.tf </samples-doc/http_minimalWebAPI/terraform/function.tf>`
+  see :github_repo_master:`loggroup.tf </samples-doc/http_minimalWebAPI/terraform/loggroup.tf>`
+
+  .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/loggroup.tf
+     :language: terraform
 
 - configure test events for the Function to be used in the
   Function Graph console,
   see :github_repo_master:`func_testevents.tf </samples-doc/http_minimalWebAPI/terraform/func_testevents.tf>`
+
+  .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/func_testevents.tf
+     :language: terraform
 
 To deploy the HTTP Function using terraform follow these steps:
 
@@ -66,8 +80,13 @@ To deploy the HTTP Function using terraform follow these steps:
    .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/http.tfvars
       :language: hcl
 
-3. To deploy using the terraform/http.tfvars configuration,
-   execute the following commands in the project folder of http_minimalWebAPI:
+3. Create a Makefile in the project folder and adjust the variables in the Makefile according to your needs:
+
+   .. literalinclude:: /../../samples-doc/http_minimalWebAPI/Makefile
+      :language: make
+
+4. To deploy using the terraform/http.tfvars configuration,
+   execute the following commands in the project root folder:
 
    .. code-block:: bash
 

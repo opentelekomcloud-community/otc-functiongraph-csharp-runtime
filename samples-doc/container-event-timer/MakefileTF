@@ -54,7 +54,7 @@ tf_destroy:
 		-var="image_url=$(OTC_SWR_ENDPOINT)/$(OTC_SWR_ORGANIZATION)/$(IMAGE_NAME):latest"
 
 update_image: docker_push
-	# getting Token for authentication from Username/Password and function URN...
+  # getting Token for authentication from Username/Password and function URN...
 	@set -e; \
 	OTC_TOKEN=$$(../../utils/tokenFromUsername.sh); \
 	MY_FUNCTION_URN=$$(terraform -chdir=terraform output -raw MY_FUNCTION_URN); \
@@ -64,22 +64,14 @@ update_image: docker_push
 	  -H "Content-Type: application/json" \
 	  -H "x-auth-token: $$OTC_TOKEN" \
 	  "$$CONFIG_URL"); \
-	echo "Stopping Function"; \
-	concurrency=$$(printf '%s\n' "$$config" | jq -c '.strategy_config.concurrency'); \
-	updated_config=$$(printf '%s\n' "$$config" | jq -c '{func_name, handler, memory_size, runtime, timeout, xrole, custom_image, strategy_config: {concurrency: 0}}'); \
+	echo "Updating $$config"; \
+	updated_config=$$(printf '%s\n' "$$config" | jq 'del(.type, .log_group_id, .log_stream_id, .enable_lts_log)'); \
 	echo "Updated Function Config: $$updated_config"; \
 	curl -X PUT \
 	 -H "Content-Type: application/json" \
 	 -H "x-auth-token: $$OTC_TOKEN" \
 	 -d "$$updated_config" \
-	 "$$CONFIG_URL"; \
-	updated_config2=$$(printf '%s\n' "$$config" | jq --argjson concurrency "$$concurrency" -c '{func_name, handler, memory_size, runtime, timeout, xrole, custom_image, strategy_config: {concurrency: $$concurrency}}'); \
-	echo "Starting Function"; \
-	curl -X PUT \
-	 -H "Content-Type: application/json" \
-	 -H "x-auth-token: $$OTC_TOKEN" \
-	 -d "$$updated_config2" \
-	 "$$CONFIG_URL" 
+	 "$$CONFIG_URL";
 
 create_log_stream_index:
 	# getting Token for authentication from Username/Password...

@@ -23,3 +23,28 @@ Example
 
 See: :github_repo_master:`container-http <samples-doc/container-http>`
 for an example of creating an http function using a container image built with C#.
+
+Terraform deployment
+---------------------
+
+To deploy the function using Terraform adapt the MakefileTF and
+the terraform configuration files in the sample folder according to your needs
+and execute the following commands in the project root folder:
+
+.. code-block:: bash
+
+   make -f MakefileTF tf_apply
+
+
+To update code changes use:
+
+.. code-block:: bash
+
+   make -f MakefileTF update_image
+
+.. note::
+   To clean up the resources created by Terraform, execute the following command in the project root folder:
+   
+   .. code-block:: bash
+     
+      make -f MakefileTF tf_destroy

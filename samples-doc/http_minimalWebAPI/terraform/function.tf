@@ -20,16 +20,16 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   })
 
 
-  # -------------------------------------------------------------- #
-  # Use code uploaded to OBS as ZIP file 
-  # see code in code_from_obs_bucket.tf
+  ###### relevant part for deploy function code from obs file ######
   code_type = "obs"
   code_url = format("https://%s/%s/%s",
     opentelekomcloud_obs_bucket.codebucket.bucket_domain_name,
     "code",
     basename(var.zip_file_local)
   )
-  # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
+  # on change of the code object etag (hash) new code  version will be deployed.
+  source_code_hash = opentelekomcloud_obs_bucket_object.code_object.etag
+  ###### ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ######
 
   log_group_id   = opentelekomcloud_lts_group_v2.MyLogGroup.id
   log_group_name = opentelekomcloud_lts_group_v2.MyLogGroup.group_name
@@ -43,28 +43,10 @@ resource "opentelekomcloud_fgs_function_v2" "MyFunction" {
   }
 }
 
-##########################################################
-# Create Log Group
-##########################################################
-resource "opentelekomcloud_lts_group_v2" "MyLogGroup" {
-  group_name  = format("%s_%s_%s", var.prefix, var.function_name, "log_group")
-  ttl_in_days = 1
-
-  tags = {
-    "app_group" = var.tag_app_group
-  }
+output "MY_FUNCTION_URN" {
+  value = opentelekomcloud_fgs_function_v2.MyFunction.urn
 }
 
-##########################################################
-# Create Log Stream
-##########################################################
-resource "opentelekomcloud_lts_stream_v2" "MyLogStream" {
-  group_id    = opentelekomcloud_lts_group_v2.MyLogGroup.id
-  stream_name = format("%s_%s_%s", var.prefix, var.function_name, "log_stream")
-
-  tags = {
-    "app_group" = var.tag_app_group
-  }
+output "MY_FUNCTION_VERSION" {
+  value = opentelekomcloud_fgs_function_v2.MyFunction.version
 }
-
-

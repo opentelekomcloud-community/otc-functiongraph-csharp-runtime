@@ -34,36 +34,66 @@ see :ref:`ref_terraform_setup` for setup details.
 Terraform deployment scripts can be found in:
 :github_repo_master:`/samples-doc/event-obss3-thumbnail/terraform <samples-doc/event-obss3-thumbnail/terraform>`
 
-../Makefile
+Makefile
 ~~~~~~~~~~~
 
 Adapt file *Makefile* variables according to your needs.
 
 .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/Makefile
    :language: make
-   :caption: /Makefile
+   :caption: Makefile
 
-main.tf
-~~~~~~~
+Terraform files
+~~~~~~~~~~~~~~~~~~~~~
 
-This files contains all resources to be created for this sample.
+- Agency and permissions
 
-.. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/main.tf
-   :language: terraform
-   :caption: /main.tf
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/agency.tf
+    :language: terraform
+    :caption: agency.tf
 
-provider.tf
-~~~~~~~~~~~
+- Input and output buckets
 
-This file contains the terraform provider configuration.
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/buckets.tf
+    :language: terraform
+    :caption: buckets.tf
 
-.. note::
+- FunctionGraph function
 
-   Check especially the **backend "s3"** configuration for **bucket** and **key**.
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/function.tf
+    :language: terraform
+    :caption: function.tf
 
-.. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/provider.tf
-   :language: terraform
-   :caption: /provider.tf
+- LogGroup and LogStream
+
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/loggroup.tf
+    :language: terraform
+    :caption: loggroup.tf
+
+- OBS trigger
+
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/trigger_obs.tf 
+    :language: terraform
+    :caption: trigger_obs.tf
+
+- Test event
+
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/testevent.tf 
+    :language: terraform
+    :caption: testevent.tf
+
+- Terraform Provider
+
+
+  This file contains the terraform provider configuration.
+
+  .. note::
+
+    Check especially the **backend "s3"** configuration for **bucket** and **key**.
+
+  .. literalinclude:: /../../samples-doc/event-obss3-thumbnail/terraform/provider.tf
+    :language: terraform
+    :caption: provider.tf
 
 To deploy use following command in directory where *Makefile* is located:
 

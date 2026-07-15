@@ -6,6 +6,10 @@ Building with C#
    :hidden:
    :maxdepth: 1
 
+   Event Function <event_function/_index>
+   HTTP Function <http_function/_index>
+   Invoke FunctionGraph <invoke/_index>
+
 You can run C# code in OpenTelekomCloud FunctionGraph.
 FunctionGraph provides runtimes for C# that run your code to process events.
 

@@ -87,5 +87,5 @@ Additional libraries
 
 OpenTelekomCloud community provides following libraries for C# development:
 
-* The community edition of `OTC SDK for API signing in C# <https://github.com/opentelekomcloud-community/otc-api-sign-sdk-csharp>`_
+* The community edition of :github_otc_community:`OTC SDK for API signing in C\\# <otc-api-sign-sdk-csharp>`
   provides utility methods to handle request signing.
