@@ -1,15 +1,13 @@
 ﻿namespace src
 {
 
-  // only for NET6.0 or greater
+  // ONLY FOR NET6.0 OR GREATER
   using OpenTelekomCloud.Serverless.Function.Common;
 
   using OpenTelekomCloud.Serverless.Function.Events.Timer;
   using System;
   using System.IO;
   using System.Text;
-
-  using OpenTelekomCloud.API.Signing.Core;
 
   using System.Net.Http;
   using Newtonsoft.Json.Linq;
@@ -30,7 +28,7 @@
   /// 
   /// </summary>
 
-  public class Program
+  public class ProgramToken
   {
 
     public Stream HandlerECS(Stream inputEvent, IFunctionContext context)
@@ -43,7 +41,7 @@
 
         var logger = context.Logger;
 
-        
+
         JsonSerializer serializer = new JsonSerializer();
 
         string action = "";
@@ -86,10 +84,10 @@
         string ecs_endpoint_url = context.GetUserData("ECS_ENDPOINT_URL", "https://ecs.eu-de.otc.t-systems.com");
 
 
-        if (context.SecurityToken == null || context.SecurityToken == "")
+        if (context.Token == null || context.Token == "")
         {
-          logger.Log("SecurityToken not set, specify an agency with ecs permissions");
-          sw.WriteLine("SecurityToken not set, specify an agency with ecs permissions");
+          logger.Log("Token not set, specify an agency with ecs permissions");
+          sw.WriteLine("Token not set, specify an agency with ecs permissions");
           return new MemoryStream(ms.ToArray());
         }
 
@@ -155,48 +153,15 @@
             break;
         }
 
-        Uri ecsUri = new Uri($"{ecs_endpoint_url}/v1/{projectID}/cloudservers/action");
+        Uri uri = new Uri($"{ecs_endpoint_url}/v1/{projectID}/cloudservers/action");
 
-        HttpRequest r = new HttpRequest("POST", ecsUri);
-
-        r.headers.Add("X-Project-Id", projectID);
-        r.headers.Add("Content-Type", "application/json;charset=utf8");
-
-        // set request body
-        r.body = body.ToString();
-
-        Signer signer = new Signer
-        {
-          Key = context.SecurityAccessKey,
-          Secret = context.SecuritySecretKey,
-          SecurityToken = context.SecurityToken
-        };
-
-        // Sign the request and reuse the generated headers with HttpClient
-        var signedRequest = signer.Sign(r);
+        using var client = new HttpClient();
+        using var request = new HttpRequestMessage(HttpMethod.Post, uri);
+        request.Headers.Add("X-Auth-Token", context.Token);
+        request.Content = new StringContent(body.ToString(), Encoding.UTF8, "application/json");
 
         try
         {
-          using var client = new HttpClient();
-          using var request = new HttpRequestMessage(HttpMethod.Post, ecsUri);
-          request.Content = new StringContent(r.body, Encoding.UTF8, "application/json");
-
-          // add the headers from signed request to the HttpRequestMessage
-          foreach (string key in signedRequest.Headers.AllKeys)
-          {
-            string value = signedRequest.Headers[key];
-
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
-            {
-              continue;
-            }
-
-            if (!request.Headers.TryAddWithoutValidation(key, value))
-            {
-              request.Content.Headers.TryAddWithoutValidation(key, value);
-            }
-          }
-
           HttpResponseMessage resp = client.SendAsync(request).GetAwaiter().GetResult();
           string responseBody = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 

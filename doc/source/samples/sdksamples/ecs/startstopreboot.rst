@@ -8,7 +8,9 @@ This sample demonstrates how to start/stop/reboot an ECS instance
 using FunctionGraph and:
 
 * :otc_docs:`OpenTelekomCloud Rest API for ECS batch operations <elastic-cloud-server/api-ref/apis_recommended/batch_operations/starting_ecss_in_a_batch.html>` 
-* :github_csharp_sign_sdk:`otc-api-sign-sdk-csharp <>`
+* Using signed requests with :github_csharp_sign_sdk:`otc-api-sign-sdk-csharp <>`
+  and SecurityAccessKey/SecuritySecretKey/SecurityToken (AK/SK/ST) obtained from an agency
+* Using Token obtained from an agency to authenticate requests.
 
 Prerequisites
 ^^^^^^^^^^^^^^^^^^^^^
@@ -37,15 +39,31 @@ Source for this sample can be found in:
 
   .. tab:: Program.cs
 
-    This files contains the main program.
+    This files contains the handler for AK/SK/ST usage.
 
      .. literalinclude:: /../../samples-doc/sdk-ecs/src/Program.cs
         :language: csharp
         :caption: /Program.cs
 
+  .. tab:: ProgramToken.cs
+
+    This files contains the handler for Token usage.
+
+     .. literalinclude:: /../../samples-doc/sdk-ecs/src/ProgramToken.cs
+        :language: csharp
+        :caption: /ProgramToken.cs
+
+  .. tab:: MainClass.cs
+
+    This files contains the main class used only for compilation purposes.
+
+     .. literalinclude:: /../../samples-doc/sdk-ecs/src/MainClass.cs
+        :language: csharp
+        :caption: /MainClass.cs
+
   .. tab:: handler.txt
 
-    The handler name for this function is:
+    The handler names for this function are:
 
      .. literalinclude:: /../../samples-doc/sdk-ecs/src/handler.txt
         :language: text
@@ -62,15 +80,9 @@ command:
 
    dotnet build -c Release
 
-This command builds the project for all target frameworks defined
-in the project file and creates a zip file for each target framework
-in the project folder.
+This command builds the project and creates a zip file in the src folder, named
+`sdk_ecs_net6.0.zip`
 
-The generated zip files are:
-
-- sdk_ecs_net6.0.zip
-- sdk_ecs_netcoreapp3.1.zip
-- sdk_ecs_netcoreapp2.1.zip
 
 
 Deploy the function
@@ -95,7 +107,7 @@ Create function
 Upload code
 *******************
 
-Use **Upload** > **Local ZIP** and upload *start_ecs_net6.0.zip*
+Use **Upload** > **Local ZIP** and upload *sdk_ecs_net6.0.zip*
 from previous step.
 
 Configure function
@@ -103,6 +115,7 @@ Configure function
 
 * In **Configuration** > **Basic Settings** > **Handler**:
   set value to name as defined in **handler.txt**
+  (either `sdk_ecs::src.Program::HandlerECS` or `sdk_ecs::src.ProgramToken::HandlerECS`)
 
 * In **Configuration** > **Environment Variables** add following variables:
 
@@ -149,3 +162,30 @@ Click **Test** to test function.
 
 The function execution result is displayed in the
 **Execution Result** section.
+
+
+Trigger usage
+-------------------
+
+You can create triggers to start/stop the ECS instance at a specific time.
+
+
+In **Configuration** > **Triggers** 
+
+  - Click `Create Trigger` to create stop trigger to stop instance every day at 17:00:
+
+    - Trigger Type: **Timer**
+    - Timer Name: **stop**
+    - Rule: **Cron expression**,  
+      Value: **CRON_TZ=Europe/Berlin 0 0 17 \* \* \***
+    - Enable Trigger **enable**
+    - Additional Information: **stop**
+
+  - Click `Create Trigger` to create start trigger to start instance every day at 08:00:
+  
+    - Trigger Type: **Timer**
+    - Timer Name: **start**
+    - Rule: **Cron expression**,  
+      Value: **CRON_TZ=Europe/Berlin 0 0 8 \* \* \***
+    - Enable Trigger **enable**
+    - Additional Information: **start**

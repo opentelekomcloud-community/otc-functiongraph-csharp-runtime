@@ -1,2 +1,5 @@
-# Handler Name for ECS
+# Handler Name for AK/SK/ST usage 
 sdk_ecs::src.Program::HandlerECS
+
+# Handler Name for Token usage
+sdk_ecs::src.ProgramToken::HandlerECS
