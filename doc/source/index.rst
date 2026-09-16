@@ -9,8 +9,7 @@ FunctionGraph on OpenTelekomCloud.
    :hidden:
 
    Building with C# <devguide/_index>
-   Event Function <devguide/event_function/_index>
-   HTTP Function <devguide/http_function/_index>
+   Concepts <devguide/concepts/_index>
    Deployment <devguide/deployment/_index>
    Samples <samples/_index>
    Best Practices <devguide/bestpractices/_index>

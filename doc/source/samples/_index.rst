@@ -8,3 +8,4 @@ C# FunctionGraph samples
     Timer Event<event_timer/_index>
     OBS (S3) Samples <obssamples/_index>
     SDK Samples <sdksamples/_index>
+    HTTP Minimal WebAPI <http_minimalWebApi/_index>

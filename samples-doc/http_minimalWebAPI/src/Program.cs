@@ -55,9 +55,10 @@ public class Program
     {
       options.SwaggerDoc("v1", new OpenApiInfo { Title = "Minimal Web API", Version = "v1" });
 
+      var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
       var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-      var xmlPath= Path.Combine(AppContext.BaseDirectory, xmlFilename);
-      // Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
+      var xmlPath= Path.Combine(baseDirectory, xmlFilename);
+      //Console.WriteLine($"########################################### Including XML comments from: {xmlPath}");
 
       options.IncludeXmlComments(xmlPath);
 

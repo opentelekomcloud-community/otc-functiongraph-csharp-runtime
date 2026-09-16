@@ -1,12 +1,28 @@
-Define FunctionGraph function handler in C#
-==========================================================
+.. _devguide_event_function_scratch_index:
+
+Building FunctionGraph Event Functions with C# from scratch
+==========================================================================
+
+Following chapter describes how to build FunctionGraph event functions
+using C# from scratch:
 
 .. toctree::
-    :hidden:
+   :hidden:
 
+   Project <project.rst>
+   Context <context.rst>
+   Initializer <initializer.rst>
 
-Function syntax
-----------------
+Introduction
+------------
+
+For general details about creating event functions from scratch and
+executing an event function,
+see :otc_docs:`Creating a Function from Scratch and Executing the Function <function-graph/umn/creating_a_function/creating_a_function_from_scratch/creating_an_event_function.html>`
+in the user manual.
+
+Function Development Overview
+------------------------------
 
 The C# function handler is the method in your function code that
 processes events.
@@ -54,6 +70,7 @@ Example:
     {
         public class Program
         {
+            /// Handler name: src.Program::Handler
             public Stream Handler(Stream inputEvent, IFunctionContext context)
             {
                 return "hello world";
@@ -85,8 +102,10 @@ Example:
 
   - .NET 6.0 and above, classes from ``OpenTelekomCloud.Serverless.Function.Common`` must be used.
 
-Function Handler
-----------------
+.. _index_handler:
+
+Handler
+^^^^^^^^^^^^^^^^^^^^
 
 For a C# function, the handler must be named in the format of
 
@@ -108,6 +127,43 @@ to which the handler function belongs (as defined in Program.cs: src.Program).
    :caption: handler.txt
 
    simple::src.Program::Handler
+
+
+.. _index_initializer:
+
+Initializer
+^^^^^^^^^^^^^^^^^^^^
+
+For details about the initializer, see :ref:`initializer`.
+
+The initializer is in the format of **ASSEMBLY::NAMESPACE.CLASSNAME::METHODNAME**.
+
+The following is a simple initializer:
+
+.. code-block:: csharp
+
+  public Stream Initializer(IFunctionContext context)
+    {
+        var logger = context.Logger;
+        logger.Logf("Hello World");
+
+        return "hello world";
+    }
+
+
+* **Function name**:
+  The function name **Initializer** must be the initializer function
+  name specified for a function.
+
+  For example, if the initializer is named **simple::src.Program::Initializer**, FunctionGraph
+  loads the initializer function defined in the **simple::src.Program** file.
+
+* **context**:
+  The **context** parameter contains the runtime information about a function.
+  For example, request ID, temporary AK, and function metadata.
+  See :ref:`context` for details.
+
+
 
 Accessing and using the FunctionGraph context object
 ----------------------------------------------------
@@ -143,7 +199,7 @@ Accessing environment
 Environment variables defined in ``OpenTelekomCloud`` >
 ``Configuration`` > ``Environment Variables`` can be accessed using:
 
-.. code-block:: java
+.. code-block:: csharp
 
   // accessing an environment variable named "ENV_VAR1"
   context.GetUserData("ENV_VAR1","");

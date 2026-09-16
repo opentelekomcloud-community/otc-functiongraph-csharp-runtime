@@ -1,11 +1,9 @@
 ﻿namespace src
 {
 
-#if NET6_0_OR_GREATER
+  // only for NET6.0 or greater
   using OpenTelekomCloud.Serverless.Function.Common;
-#else
-  using HC.Serverless.Function.Common;
-#endif
+
   using OpenTelekomCloud.Serverless.Function.Events.Timer;
   using System;
   using System.IO;
@@ -13,7 +11,6 @@
 
   using OpenTelekomCloud.API.Signing.Core;
 
-  using System.Net;
   using System.Net.Http;
   using Newtonsoft.Json.Linq;
 
@@ -36,15 +33,6 @@
   public class Program
   {
 
-    /// <summary>
-    /// Main method - not used in FunctionGraph but needed for compilation
-    /// </summary>
-    /// <param name="args"></param>
-    public static void Main(string[] args)
-    {
-      Console.WriteLine("This is a FunctionGraph C# runtime program");
-    }
-
     public Stream HandlerECS(Stream inputEvent, IFunctionContext context)
     {
       string payload = "";
@@ -55,19 +43,35 @@
 
         var logger = context.Logger;
 
+        
+        JsonSerializer serializer = new JsonSerializer();
+
+        string action = "";
+
+        TimerEvent anEvent = serializer.Deserialize<TimerEvent>(inputEvent);
+        if (anEvent != null && !string.IsNullOrWhiteSpace(anEvent.UserEvent))
+        {
+          logger.Logf("Using action from TimerEvent.UserEvent: {0}", anEvent.UserEvent);
+          action = anEvent.UserEvent.ToLower();
+        }
+        else
+        {
+          logger.Logf("Using action from user data ECS_ACTION");
+          action = context.GetUserData("ECS_ACTION", "start").ToLower();
+        }
+
+        if (action != "start" && action != "stop" && action != "reboot")
+        {
+          logger.Logf("ECS_ACTION {0} not supported, only 'start', 'stop', 'reboot' is supported", action);
+          sw.WriteLine($"ECS_ACTION {action} not supported, only 'start', 'stop', 'reboot' is supported");
+          return new MemoryStream(ms.ToArray());
+        }
+
         string instanceId = context.GetUserData("ECS_INSTANCE_ID", "");
         if (instanceId == "")
         {
           logger.Log("ECS_INSTANCE_ID user data not set");
           sw.WriteLine("ECS_INSTANCE_ID user data not set");
-          return new MemoryStream(ms.ToArray());
-        }
-
-        string action = context.GetUserData("ECS_ACTION", "start").ToLower();
-        if (action == "")
-        {
-          logger.Logf("ECS_ACTION {0} not supported, only 'start', 'stop', 'reboot' is supported", action);
-          sw.WriteLine($"ECS_ACTION {action} not supported, only 'start', 'stop', 'reboot' is supported");
           return new MemoryStream(ms.ToArray());
         }
 
@@ -90,22 +94,8 @@
         }
 
         logger.Logf("CSharp runtime test: ECS {0} instance {1}", action, instanceId);
-        Signer signer = new Signer
-        {
-          Key = context.SecurityAccessKey,
-          Secret = context.SecuritySecretKey,
-          SecurityToken = context.SecurityToken
-        };
-
 
         string projectID = context.ProjectId;
-
-        HttpRequest r = new HttpRequest("POST",
-          new Uri($"{ecs_endpoint_url}/v1/{projectID}/cloudservers/action"));
-
-        r.headers.Add("X-Project-Id", projectID);
-        r.headers.Add("Content-Type", "application/json;charset=utf8");
-
 
         JObject body = null;
         switch (action)
@@ -165,37 +155,58 @@
             break;
         }
 
+        Uri ecsUri = new Uri($"{ecs_endpoint_url}/v1/{projectID}/cloudservers/action");
+
+        HttpRequest r = new HttpRequest("POST", ecsUri);
+
+        r.headers.Add("X-Project-Id", projectID);
+        r.headers.Add("Content-Type", "application/json;charset=utf8");
+
         // set request body
         r.body = body.ToString();
 
-        // Sign the request
-        HttpWebRequest req = signer.Sign(r);
+        Signer signer = new Signer
+        {
+          Key = context.SecurityAccessKey,
+          Secret = context.SecuritySecretKey,
+          SecurityToken = context.SecurityToken
+        };
+
+        // Sign the request and reuse the generated headers with HttpClient
+        var signedRequest = signer.Sign(r);
 
         try
         {
-          var writer = new StreamWriter(req.GetRequestStream());
-          writer.Write(r.body);
-          writer.Flush();
-          HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-          var reader = new StreamReader(resp.GetResponseStream());
+          using var client = new HttpClient();
+          using var request = new HttpRequestMessage(HttpMethod.Post, ecsUri);
+          request.Content = new StringContent(r.body, Encoding.UTF8, "application/json");
 
-          logger.Logf("Response code {0}, {1}", (int)resp.StatusCode, resp.StatusDescription);
-          sw.WriteLine(reader.ReadToEnd());
+          // add the headers from signed request to the HttpRequestMessage
+          foreach (string key in signedRequest.Headers.AllKeys)
+          {
+            string value = signedRequest.Headers[key];
+
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+            {
+              continue;
+            }
+
+            if (!request.Headers.TryAddWithoutValidation(key, value))
+            {
+              request.Content.Headers.TryAddWithoutValidation(key, value);
+            }
+          }
+
+          HttpResponseMessage resp = client.SendAsync(request).GetAwaiter().GetResult();
+          string responseBody = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+          logger.Logf("Response code {0}, {1}", (int)resp.StatusCode, resp.ReasonPhrase);
+          sw.WriteLine(responseBody);
         }
-        catch (WebException e)
+        catch (HttpRequestException e)
         {
-          HttpWebResponse resp = (HttpWebResponse)e.Response;
-          if (resp != null)
-          {
-            logger.Logf("Response code {0}, {1}", (int)resp.StatusCode, resp.StatusDescription);
-            var reader = new StreamReader(resp.GetResponseStream());
-
-            sw.WriteLine(reader.ReadToEnd());
-          }
-          else
-          {
-            logger.Logf(e.Message);
-          }
+          logger.Logf(e.Message);
+          sw.WriteLine(e.Message);
         }
 
         sw.WriteLine(payload);

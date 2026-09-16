@@ -2,8 +2,14 @@
 
   <Import Project="..\..\common.props" />
 
+   <PropertyGroup> 
+    <TargetFrameworks>net6.0</TargetFrameworks>
+   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common" Version="*-*" />
+    <PackageReference Include="OpenTelekomCloud.Serverless.Function.Common.JsonSerializer"
+      Version="*-*" />
     <PackageReference Include="OpenTelekomCloud.Serverless.Function.Events.Timer" Version="*-*" />
   </ItemGroup>
 
