@@ -8,11 +8,11 @@ Deploy FunctionGraph Event Function from OBS
    :hidden:
 
 This sample demonstrates how to deploy a simple event function to 
-FunctionGraph with **code from OBS** using terraform.
+FunctionGraph with **code from OBS** using Terraform.
 
 This approach is used, if your unpacked FunctionGraph deployment package is **less than 40MB**.
 
-Source code of this sample is available on :github_repo_master:`GitHub <samples-doc/deploy-from-obs>`.
+Source code of this sample is available on :github_repo_master:`GitHub <samples-doc/http_minimalWebAPI>`.
 
 Prerequisites
 -----------------
@@ -64,13 +64,13 @@ This example deploys a minimal C# HTTP Function and demonstrates how to:
   .. literalinclude:: /../../samples-doc/http_minimalWebAPI/terraform/func_testevents.tf
      :language: terraform
 
-To deploy the HTTP Function using terraform follow these steps:
+To deploy the HTTP Function using Terraform follow these steps:
 
 1. Create an API Gateway or use an existing one. (Creating an API Gateway is
-   not part of this terraform setup.)
+   not part of this Terraform setup.)
    See `Creating a Gateway <https://docs.otc.t-systems.com/api-gateway/umn/gateway_management/creating_a_gateway.html>`_
    for instructions on how to create an API Gateway.
-   Note down the instance ID to be used in terraform configuration.
+   Note down the instance ID to be used in Terraform configuration.
 
 2. Adjust the ``http.tfvars`` file according to your needs.
 

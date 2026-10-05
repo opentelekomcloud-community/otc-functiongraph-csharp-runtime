@@ -74,7 +74,7 @@ in the project folder.
 Deploy the function
 -------------------
 
-Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
+Use `T Cloud Public FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
 to create a function with following settings:
 
 Create function

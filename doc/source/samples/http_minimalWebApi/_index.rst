@@ -26,6 +26,8 @@ The project structure is as follows:
 
    /http_minimalWebAPI/
     ├── src/
+    |   ├── Controllers
+    |   │   └── SampleController.cs
     |   ├── Properties
     |   │   └── launchSettings.json
     |   ├── wwwroot
@@ -33,6 +35,7 @@ The project structure is as follows:
     |   ├── appsettings.json
     |   ├── appsettings.Development.json
     |   ├── http_minimalWebAPI.csproj
+    |   ├── LoggingMiddleware.cs
     │   └── Program.cs
     (└── http_minimalWebAPI.sln)
 
@@ -117,7 +120,7 @@ Following command will create a deployment package in ZIP format:
 Deploy the function to FunctionGraph
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
+Use `T Cloud Public FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
 to create a function with following settings:
 
 Create function

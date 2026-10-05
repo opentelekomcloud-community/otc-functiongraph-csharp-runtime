@@ -1,7 +1,6 @@
 C# FunctionGraph samples
 ==========================
 .. toctree::
-   :hidden:
    :maxdepth: 1
 
     APIG Event<event_apig/_index>

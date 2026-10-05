@@ -3,7 +3,7 @@ CTS Event Source
 
 FunctionGraph's CTS trigger (Cloud Trace Service Trigger) is a trigger type
 based on the Cloud Trace Service (CTS) that can monitor and respond to
-OpenTelekomCloud resource operation events.
+T Cloud Public resource operation events.
 
 Through CTS triggers, you can implement security auditing, compliance
 monitoring, automated response, event notification, and other functions.
@@ -46,7 +46,7 @@ Parameter description
      - Description
    * - time
      - Int
-     - (Epoch timestamp in milliseconds)
+     - Epoch timestamp in milliseconds
    * - user
      - Map
      - Information about the user who initiated this request
@@ -90,6 +90,6 @@ For full description of all parameters see
 Example
 -------
 
-.. .. literalinclude:: /../../samples-doc/event-cts/Program.cs
+.. literalinclude:: /../../samples-doc/event-cts/src/Program.cs
     :language: csharp
-    :caption: :github_repo_master:`Program.cs <samples-doc/event-cts/Program.cs>`
+    :caption: :github_repo_master:`Program.cs <samples-doc/event-cts/src/Program.cs>`

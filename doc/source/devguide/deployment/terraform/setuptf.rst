@@ -13,7 +13,7 @@ Terraform provides installation packages for different environments.
 
 For details, see `Install Terraform <https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli>`_ on Terraform site.
 
-For details on how to use Terraform on OpenTelekomCloud, see
+For details on how to use Terraform on T Cloud Public, see
 `Open Telekom Cloud Provider <https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud/latest/docs>`_.
 
 Setting Environment Variables
@@ -53,15 +53,15 @@ Set following environment variables:
 
       * - TF_VAR_OTC_SDK_DOMAIN_NAME
         - Domain Name
-        - see: :api_usage:`Obtaining the Domain Name and Domain ID<guidelines/calling_apis/obtaining_required_information.html>` in API usage guide.
+        - see: :api_usage:`Obtaining the Domain Name and Domain ID<guidelines/calling_apis/obtaining_required_information.html#obtaining-the-domain-name-and-domain-id>` in API usage guide.
 
       * - TF_VAR_OTC_SDK_PROJECTID
         - Project Id
-        - see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html>` in API usage guide.
+        - see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html#obtaining-a-project-id>` in API usage guide.
 
       * - TF_VAR_OTC_SDK_PROJECTNAME
         - Project name
-        - see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html>` in API usage guide.
+        - see: :api_usage:`Obtaining a Project ID<guidelines/calling_apis/obtaining_required_information.html#obtaining-a-project-id>` in API usage guide.
 
       * - TF_VAR_OTC_IAM_ENDPOINT
         - IAM endpoint URL
@@ -152,5 +152,7 @@ See: `Terraform State <https://developer.hashicorp.com/terraform/language/state>
           s3cmd \
             --access_key=${OTC_SDK_AK} \
             --secret_key=${OTC_SDK_SK} \
+            --host=https://obs.eu-de.otc.t-systems.com \
+            --host-bucket="%(bucket)s.obs.eu-de.otc.t-systems.com" \
             --no-ssl \
             mb s3://<bucket_name>

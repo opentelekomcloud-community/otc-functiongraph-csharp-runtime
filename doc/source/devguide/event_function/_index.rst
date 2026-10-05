@@ -85,7 +85,7 @@ Test libraries
 Additional libraries
 ^^^^^^^^^^^^^^^^^^^^
 
-OpenTelekomCloud community provides following libraries for C# development:
+T Cloud Public community provides following libraries for C# development:
 
-* The community edition of :github_otc_community:`OTC SDK for API signing in C\\# <otc-api-sign-sdk-csharp>`
+* The community edition of :github_otc_community:`OTC SDK for API signing in C# <otc-api-sign-sdk-csharp>`
   provides utility methods to handle request signing.

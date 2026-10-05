@@ -27,8 +27,10 @@ for an example of creating an http function using a container image built with C
 Terraform deployment
 ---------------------
 
+For the configuration needed for Terraform deployment, see :ref:`ref_terraform_setup`.
+
 To deploy the function using Terraform adapt the MakefileTF and
-the terraform configuration files in the sample folder according to your needs
+the Terraform configuration files in the sample folder according to your needs
 and execute the following commands in the project root folder:
 
 .. code-block:: bash

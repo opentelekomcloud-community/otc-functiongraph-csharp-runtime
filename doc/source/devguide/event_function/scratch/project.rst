@@ -226,6 +226,7 @@ Example directory of a C# project package
         :caption: Directory structure for .NET 6.0
 
           simple_net6.0.zip                                   # Example project package
+          ├─ simple                                           # Executable file generated after project compilation
           ├─ simple.deps.json                                 # File generated after project compilation
           ├─ simple.dll                                       # File generated after project compilation
           ├─ simple.pdb                                       # File generated after project compilation
@@ -239,12 +240,14 @@ Example directory of a C# project package
         :caption: Directory structure for prior to .NET 6.0
 
           simple_event_timer_netcoreapp3.1.zip                       # Example project package
+          ├─ simple                                                  # Executable file generated after project compilation
           ├─ simple.deps.json                                        # File generated after project compilation
           ├─ simple.dll                                              # File generated after project compilation
           ├─ simple.pdb                                              # File generated after project compilation
+          ├─ simple.runtimeconfig.dev.json                           # File generated after project compilation
           ├─ simple.runtimeconfig.json                               # File generated after project compilation
           ├─ handler.txt                                             # Help file, which can be directly used
-          └─ HC.Serverless.Function.Common.legacy.dll                # .dll file provided by this runtime package
+          └─ HC.Serverless.Function.Common.dll                       # .dll file provided by this runtime package
 
 
 This deployment zip will be created automatically
@@ -267,7 +270,7 @@ The generated zip files are:
 Deploy the function
 --------------------
 
-Use `OpentelekomCloud FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
+Use `T Cloud Public FunctionGraph console <https://console.otc.t-systems.com/functiongraph/>`_
 to create a function with following settings:
 
 Create function

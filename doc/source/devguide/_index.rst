@@ -10,7 +10,7 @@ Building with C#
    HTTP Function <http_function/_index>
    Invoke FunctionGraph <invoke/_index>
 
-You can run C# code in OpenTelekomCloud FunctionGraph.
+You can run C# code in T Cloud Public FunctionGraph.
 FunctionGraph provides runtimes for C# that run your code to process events.
 
 FunctionGraph Types
@@ -21,11 +21,11 @@ FunctionGraph provides 2 types of functions:
 * **Event Functions**
 
   Event functions can be configured with event triggers and integrate
-  a variety of OpenTelekomCloud products
+  a variety of T Cloud Public products
   (such as object storage service OBS, distributed messaging service
   RabbitMQ version, cloud log service LTS, etc.).
 
-  See :doc:`Event Function <event_function/_index>`
+  See :doc:`Event Functions <event_function/_index>`
 
 * **HTTP Functions**
 

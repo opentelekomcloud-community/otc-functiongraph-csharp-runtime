@@ -38,7 +38,7 @@ Performance testing of functions is a crucial step in ensuring the selection of 
 During function load testing, platform-provided metrics, logs, call chains, and other tools can be
 used to further analyze function performance data, thereby optimizing function configuration selection.
 For details on specific observable metrics, please refer to the
-:otc_docs:`Function Monitoring Overview <https://docs.otc.t-systems.com/function-graph/umn/viewing_metrics_and_configuring_alarms/index.html>`.
+:otc_docs:`Function Monitoring Overview <function-graph/umn/viewing_metrics_and_configuring_alarms/index.html>`.
 
 Streamlined code and image slimming
 ---------------------------------------------------------------
@@ -83,8 +83,7 @@ Configure reserved instances
 Once a reserved instance is created, it will automatically load the function's code, dependencies,
 and the initialization entry function, and persist in the environment. Therefore, configuring a
 reserved instance for a function can avoid latency issues caused by cold starts.
-For configuration instructions on reserved instances for functions, please refer to
-Reserved Instance Management.
+For configuration instructions on reserved instances for functions, please refer to :docs_otc:`Reserved Instance Management <function-graph/umn/configuring_reserved_instances.html>`.
 
 Use function initialization entry point
 ---------------------------------------------------------------

@@ -1,8 +1,8 @@
-OpenTelekomCloud FunctionGraph C# documentation
+FunctionGraph C# documentation
 ===============================================
 
-This is the FunctionGraph C# Development Guide for running
-FunctionGraph on OpenTelekomCloud.
+This is the **FunctionGraph C# Development Guide** for running
+FunctionGraph on T Cloud Public (formerly OpenTelekomCloud).
 
 .. toctree::
    :maxdepth: 10

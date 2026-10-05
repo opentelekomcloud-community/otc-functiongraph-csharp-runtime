@@ -181,7 +181,7 @@ and is the second argument of the handler function.
 Logging in FunctionGraph
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-To produce logs in OpenTelekomCloud Log Tank Servics (LTS) you can use
+To produce logs in T Cloud Public Log Tank Service (LTS) you can use
 ``context.Logger`` to get a RuntimeLogger object for logging.
 
 .. code-block:: csharp
@@ -196,7 +196,7 @@ see :doc:`Using the FunctionGraph context object to retrieve function informatio
 Accessing environment
 ^^^^^^^^^^^^^^^^^^^^^
 
-Environment variables defined in ``OpenTelekomCloud`` >
+Environment variables defined in ``T Cloud Public FunctionGraph Console`` >
 ``Configuration`` > ``Environment Variables`` can be accessed using:
 
 .. code-block:: csharp

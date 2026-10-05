@@ -5,7 +5,6 @@
   using OpenTelekomCloud.Serverless.Function.Common;
 #else
   using HC.Serverless.Function.Common;
-  using OpenTelekomCloud.Serverless.Function.Common;
 #endif
   using OpenTelekomCloud.Serverless.Function.Events.Timer;
   using System;
