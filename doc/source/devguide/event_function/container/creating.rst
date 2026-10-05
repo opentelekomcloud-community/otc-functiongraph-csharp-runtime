@@ -102,7 +102,7 @@ Test the image using the Makefile target **test_local** - run the following comm
 
 You should see output similar to the following:
 
-.. code-block:: txt
+.. code-block:: text
 
    Processed event: {"version":"v1.0","time":"2023-06-01T00:30:00+00:00","trigger_type":"TIMER","trigger_name":"Timer_001","user_event":"{\"message\": \"timer triggered event\", \"topic\":\"test\"}"}, RequestId: e1817952-1c91-4779-adaf-459804910e30
 
